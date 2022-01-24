@@ -1,0 +1,102 @@
+analysis_pca <- function (data_c_frame,i,ll,dirout) {
+ 
+#pca example from: 
+#http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/112-pca-principal-component-analysis-essentials/
+
+  library("ggplot2");
+  library("factoextra");
+  library("FactoMineR");
+# modified 03232020 -> population from owd, limite date 23122020
+#Clustering countries, blood and covid data
+  library (tidyverse);
+  library (cluster);
+  library (gridExtra);
+  library (dplyr);
+  library (rafalib);
+
+# Ordenando países com relação aos dias decorridos a partir da 5 ocorrencia.
+#source("/home/kleucio/Documents/Analises2020_12/dataowd5.R")
+
+  dim=dim(data_c_frame)
+  data_c_frame.active <- data_c_frame[,1:dim[2]-1]; # frame sem o vetor covid
+  
+  print(head(data_c_frame.active [, 2:6], 4))
+
+  rownames(data_c_frame.active) <- rownames (data_c_frame);
+
+   res.pca <- PCA(data_c_frame, quanti.sup = dim[2], graph=FALSE)
+
+# In principal component analysis, variables are often scaled (i.e. standardized). This is particularly recommended when variables are measured in different scales (e.g: kilograms, kilometers, centimeters, …); otherwise, the PCA outputs obtained will be severely affected.
+#PCA(X, scale.unit = TRUE, ncp = 5, graph = TRUE)
+
+## **Results for the Principal Component Analysis (PCA)**
+  print(res.pca)
+
+# Visualization and Interpretation from: library("factoextra")
+eig.val <- get_eigenvalue(res.pca)
+eig.val
+
+#   An alternative method to determine the number of principal components is to look at a Scree Plot
+  fviz_eig(res.pca, addlabels = TRUE, ylim = c(0, 50))
+
+
+#Graph of variables
+
+  var <- get_pca_var(res.pca)
+  var
+
+# The different components can be accessed as follow:
+# Coordinates
+  head(var$coord)
+# Cos2: quality on the factore map
+  head(var$cos2)
+# Contributions to the principal components
+  head(var$contrib)
+
+# Correlation circle
+  head(var$coord, 4) # show 4 variables
+
+  fviz_pca_var(res.pca, col.var = "black")
+
+     circle.plot=fviz_pca_var(res.pca, col.var = "cos2", gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), repel = TRUE)
+    #png(str_c(dirout,ll,"/pca_plot_",i,"_",ll,".png"), width = 700, height = 700)
+    png(str_c(dirout,ll,"/pca_plot_",ll,"_",i,".png"), width = 700, height = 700)
+       print(circle.plot)
+    dev.off();   
+
+
+#The larger the value of the contribution, the more the variable contributes to the component.
+  #head(var$contrib, 4)
+
+  library("corrplot")
+  #corrplot(var$contrib, is.corr=FALSE)   
+
+#The function fviz_contrib() [factoextra package] can be used to draw a bar plot of variable contributions.
+
+# Contributions of variables to PC1
+  fviz_contrib(res.pca, choice = "var", axes = 1, top = 10)
+# Contributions of variables to PC2
+  fviz_contrib(res.pca, choice = "var", axes = 2, top = 10)
+
+# The total contribution to PC1 and PC2 is obtained with the following R code:
+  fviz_contrib(res.pca, choice = "var", axes = 1:2, top = 10)
+
+  bi.plot <- fviz_pca_biplot (res.pca, repel = TRUE,
+#                col.var = "#2E9FDF", # Variables color
+                col.ind = "#6969DF",  # Individuals color
+                col.var = "cos2", 
+                gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+#                label ="var"
+               )
+
+    png(str_c(dirout,ll,"/pca_biplot_",ll,"_",i,".png"), width = 1000, height = 600)
+       print(bi.plot)
+    dev.off();
+
+## Visualiação com variaveis qualitativa: Negacionistas/Não Negacionistas, Socialistas/Capitalistas, Continente                
+#fviz_pca_ind(res.pca, habillage = 3,
+#             addEllipses =TRUE, ellipse.type = "confidence",
+#             palette = "jco", repel = TRUE)         
+grph=1
+return(grph)            
+}
