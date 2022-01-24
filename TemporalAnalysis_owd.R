@@ -21,7 +21,7 @@ data_site <- 0
   datetemp <- Sys.Date() #max date of the analysis;
     date_analysis <- format(datetemp, format="%d%m%Y")
       homeresults <- str_c("Results",date_analysis);
-      homedir <- "/home/klclaudio/Documents/Analises2021_10/";
+      homedir <- "~/Documents/CovidCorrelations";
  dir.create( str_c(homedir,"/Results",date_analysis) ) 
 
 #diretórios de trabalho e resultados
