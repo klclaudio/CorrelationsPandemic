@@ -59,7 +59,7 @@ if (logdata==0){
       } else if(ll==3){
       
          data_c <- read.csv( str_c(homedir,"bloodcovid_outlarger.csv") );
-         data_c_percents <- read.csv( str_c(homedir,"bloodcovid_outlarger_percents_japan.csv") );
+         data_c_percents <- read.csv( str_c(homedir,"bloodcovid_outlarger_percents.csv") ); 
          
          fileout = str_c(homedir,homecsv,"bloodcovid_outlarger_correls_Log.csv" );
          fileout_hist = str_c(homedir,homecsv,"bloodcovid_outlarger_hist_Log.csv" );

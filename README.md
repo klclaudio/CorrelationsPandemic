@@ -1,5 +1,5 @@
 # CovidCorrelations
-Correlations in pandemic world are presented here for Covid-19 and ABO groups.
+Correlations in pandemic world are calculated for Covid-19 and ABO groups.
 The initial results was published in SSR: https://dx.doi.org/10.2139/ssrn.3794044.
 
 The code was implemented in R and the principal code file is TemporalAnalysis.R. 
