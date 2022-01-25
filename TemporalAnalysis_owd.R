@@ -22,7 +22,7 @@ data_site <- 0 # 0 - use local data, 1- download from owd site
     date_analysis <- format(datetemp, format="%d%m%Y")
       homeresults <- str_c("Results",date_analysis);
   
-      #config your the homedir: 
+      #config the homedir: 
       #homedir <- "/home/user/Documents/Analises2021_10/CovidCorrelations/";
  
       homedir <- "<your homedir >/Analises2021_10/CovidCorrelations/";
