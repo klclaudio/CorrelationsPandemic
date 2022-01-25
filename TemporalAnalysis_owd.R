@@ -16,13 +16,18 @@ library (ggcorrplot);
 library (corrplot);
 library (GGally);
 
-#difinindo data de análise
-data_site <- 0
+# defining date of analysis
+data_site <- 0 # 0 - use local data, 1- download from owd site
   datetemp <- Sys.Date() #max date of the analysis;
     date_analysis <- format(datetemp, format="%d%m%Y")
       homeresults <- str_c("Results",date_analysis);
-      homedir <- "~/Documents/CovidCorrelations";
- dir.create( str_c(homedir,"/Results",date_analysis) ) 
+  
+      #config your the homedir: 
+      #homedir <- "/home/user/Documents/Analises2021_10/CovidCorrelations/";
+ 
+      homedir <- "<your homedir >/Analises2021_10/CovidCorrelations/";
+      
+      dir.create( str_c(homedir,"/Results",date_analysis) ) 
 
 #diretórios de trabalho e resultados
 
@@ -83,7 +88,7 @@ if ( data_site ==1 ) {
 
 dataowd5 <- read.csv( str_c(homedir,"dataowd5_",date_analysis,".csv") );
 
-#dados ordenados por número de dias desde a 5 ocorrência 
+#dados ordenados por número de dias desde a 5a. ocorrência 
 dataowd5_days <- read.csv( str_c(homedir,"dataowd5_",date_analysis,"_order.csv") );
 
 #cols: 45-Populatioons, 44-stringency_index, 46-Populations_density, 46-cardiovasc_death_rate, 47-diabetes_prevalence, 51-hospital_beds_per_thousand, 52-life_expectancy, 53-human_development_index
@@ -138,7 +143,7 @@ mat_coefia_csv = c();
 #datascale = 1 # padronização dos dados  não tem efeito com transformação log
    datascale = 0 # 0- sem padronização dos dados,  1- com padronização
 
-# Execuçao da analise de dados atraves de PCA (Principal Component Analysis)
+# Execuçao da análise de dados atraves de PCA (Principal Component Analysis)
    pca_expanded <- 0# 0- sem nalises pca, 1- com análise pca
 
 # paises a serem excluídos no processo temporal para análise de descontinuidades
@@ -751,7 +756,7 @@ if (pca_expanded==1){
     source( str_c(homedir,"histograms_tests.R") );            
 
 #plot(covid)
-    source( str_c(homedir,"CovidEvolution.R") );   
+    source( str_c(homedir,"covid_evolution.R") );   
     print(dim(aux2)); 
 
 
@@ -759,13 +764,13 @@ if (pca_expanded==1){
 
     
 # -------------------- saidas de dados para cada análise ll -------------------------
-#Coeficientes de analises Covid19
+#Coeficientes de análises Covid19
     source( str_c(homedir, "coeffCovid19_Log.R") );   
   
 # cumulative_covid
     source( str_c(homedir, "plotcumulativecovid.R") );
 
-# Gravando em arquivos cannot open file '/home/klclaudio/Documents/Analises2021_07/bloodcovidOutCH_I22062020.csv': No such file or directory
+# Gravando em arquivos 
     print("Gravando arquivos");
     source( str_c(homedir, "saidas_correlacoes.R") );
    
