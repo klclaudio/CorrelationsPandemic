@@ -1,5 +1,5 @@
 
-dataowd5_site_f <- function (date_analysis, home_site, homedir, homedata) {
+dataowd5_site_f <- function (date_analysis, home_site, homedir) {
 # Cria o arquivo dataowd5_DATE a partir do owid-covid-data_less523122020, organiza por total_deaths e elimina todas  menores que 4 deaths
 # Antes de rodar esse arquivo
 # 1 - owid-covid-data_less523122020 organizado por total_deaths 

@@ -40,7 +40,7 @@ xp <- c(1:N_i)/100;
 png(str_c( homedir, homecorr,"CorrelationsPopulations",type_stat,ll,"_",i,".png"), width = 500, height = 500);
    mypar();
    par(mar = c(4, 4, 4, 4))
-   plot(correlacoes[,1], main="Population analysis", ylab="Correlations", xlab="Days since five deaths", cex.main = ftsize , cex.lab= ftsize, cex.axis= ftsize,type="l", lty=1) #Population
+   plot(correlacoes[,1], main="Population analysis", ylab="Correlations", xlab="Days since five deaths", ylim=ylimite, cex.main = ftsize , cex.lab= ftsize, cex.axis= ftsize,type="l", lty=1) #Population
    grid(lty=3, lwd=1)
 dev.off();
 
@@ -117,8 +117,8 @@ png( str_c( homedir, homecorr,"CorrelationsCovidABO",type_stat,ll,"_",i,".png"),
    plot(correlacoes_AB, ylab="", xlab="",ylim=ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, col = color_l[4], type= "l", lty=6, pch="*");   #AB
     
 
- plot(correlacoes_rhp,  main="Rhesus(Rh) System (d)", ylab="Correlations", xlab="Days since five deaths",
-    ylim=ylimite , cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, col = color_l2[1], type="l", lty=1, pch="+");  #rhp                                #rhp
+   plot( correlacoes_rhp,  main="Rhesus(Rh) System (d)", ylab="Correlations", xlab="Days since five deaths",
+         ylim=ylimite , cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, col = color_l2[1], type="l", lty=1, pch="+");  #rhp                                #rhp
     
     
    
