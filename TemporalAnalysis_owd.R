@@ -34,7 +34,7 @@ data_site <- 0; # 0 - use local data, 1- download from owd site
 # Must config your homedir here: 
   homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
 
-#homedir <- "<your homedir >/Analises2021_10/CovidCorrelations/";
+# homedir <- "<your homedir>";
   dir.create( str_c(homedir,"/Results",date_analysis) ); 
 
 # Work and results directories
@@ -99,7 +99,6 @@ if ( data_site ==1 ) {
     
 }  
 
-   
 # Ordering countries in relation to the days of occurrences since the 5th death.
 # source("/home/kleucio/Documents/Analises2020_12/dataowd5.R")
 
@@ -138,7 +137,6 @@ mat_coefia_csv = c();
    mat_statsa_csv = c();
       mat_stderra_csv = c();
 
-
 #-----------------------------------------------------------------------------------------------
 
 # Method used in correlations
@@ -172,7 +170,6 @@ mat_coefia_csv = c();
 #  ndata - Sets of countries analyzed
    ndata = 4;
 
-   
 #------------------------------------------------------------------------------------------------
 #
 #for ll...numbers of analysis (ll)  -  ll: 1 ...4
@@ -266,18 +263,20 @@ for ( ll in c(1:ndata) ){
         diarydeaths <- c(diarydeaths,somadeaths_i);
 
     ftsize = 1.3;
-    png( str_c(homedir, homeCounEvol,"Pandemic_18072021",".png"), width = 500, height = 500)
+    png( str_c(homedir, homeCounEvol,"Pandemic_", date_analysis,".png"), width = 500, height = 500 )
+        
         mypar(); 
         par(new = FALSE);
         par(mar = c(4, 4, 4, 4));
    
-        plot (daysa5 ,main = "Covid-19 Pandemic in 2020-08-19",
-            xlab = "Number of Countries",
-            ylab = "Days since five deaths",
-            cex.main = ftsize , cex.lab = ftsize, cex.axis = ftsize,
-            type = "l",
-            lty = 1); 
+        plot( daysa5, main = str_c("Covid-19 Pandemic in ", date_analysis),
+              xlab = "Number of Countries",
+              ylab = "Days since five deaths",
+              cex.main = ftsize, cex.lab = ftsize, cex.axis = ftsize,
+              type = "l",
+              lty = 1 ); 
         grid(lty = 3, lwd = 1);
+    
     dev.off();
 
 
@@ -405,7 +404,6 @@ for ( ll in c(1:ndata) ){
           j = j+1;
        } 
       
-  
     } #end for k<-1:l
 
     rownames( aux2 ) <- names_aux2;
@@ -448,7 +446,6 @@ for ( ll in c(1:ndata) ){
             }
         }
     } # End if outcountry
-     
      
      aux2_r <- aux2;  
         
@@ -509,7 +506,6 @@ for ( ll in c(1:ndata) ){
      correltest_1 <- c();
       correltest_CI_1 <- c();
      
-     
       for ( kk in c(1:9) ){
          
          auxcorrel_1 <- cor.test( aux2[,kk], covid, method =  method_correl, exact=errors_correl, use = "complete_obs" );
@@ -551,7 +547,6 @@ for ( ll in c(1:ndata) ){
            correlacoest_O<-rbind( correlacoest_O, t(correltest_O) );
            correlacoest_CI_O <- rbind ( correlacoest_CI_O, t(correltest_CI_O) )
       
-    
          auxcor_A <- cor.test( log(aux2_r[,1:9] %*% c(0, 0,1,0,0, 0,1,0,0)) , covid, method =  method_correl, exact=errors_correl, use = "complete_obs" ); # A
     
            correl_A <- auxcor_A$estimate;
