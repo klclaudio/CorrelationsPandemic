@@ -1,5 +1,9 @@
+#
+# Plot comparative analysis and it saves in the folder <homedaily>
+#
+
 color_l = c("red","blue","black","cyan2");# A, O, B, AB
-color_l2= c("brown","green4"); #rhp rhn
+   color_l2= c("brown","green4"); #rhp rhn
 
 
 png(str_c(homedir,homedaily,"ComparativeAnalysis",".png"), width = 700, height = 500)
@@ -36,7 +40,7 @@ mypar(1,1);
    abline(h=0.05, col="grey", lty=2, lwd=2);
  
  
-#Graficos comparativos 14 dias 
+#Comparative plots 12 days
   par(new = TRUE);
   plot(covid_ll[,4],
        #main=str_c("",idg[iii]),
@@ -101,11 +105,10 @@ mypar(1,1);
   
 mypar(); 
 par(new=FALSE);
-dev.off(); #fecha saída de arquivo
+dev.off(); 
+      
 #
-#-------------------------------Comparative Analysis 500 days----------------------------------
-##
-#-------------------------------Comparative Analysis 500 days----------------------------------
+#-------------------------------Comparative Analysis N_i days----------------------------------
 #
 png(str_c(homedir,homedaily,"ComparativeAnalysis_",N_i,".png"), width = 700, height = 500)
 
@@ -141,7 +144,7 @@ xlimite = N_i;
    abline(h=0.05, col="grey", lty=2, lwd=2);
 
 
-#Graficos comparativos 14 dias
+#Comparative plots 12 days
   par(new = TRUE);
   plot(covid_ll[,4],
        #main=str_c("",idg[iii]),
@@ -206,13 +209,11 @@ xlimite = N_i;
 
 mypar();
 par(new=FALSE);
-dev.off(); #fecha saída de arquivo
-
+dev.off(); 
+      
 #
 #-------------------------------Comparative Analysis 50 days----------------------------------
 #
-
-
 png(str_c(homedir,homedaily,"ComparativeAnalysis_50",".png"), width = 700, height = 500)
 mypar(1,1); 
  par(new = FALSE)
@@ -295,7 +296,7 @@ mypar(1,1);
    plot( correlacoes_rhn[1:50], ylab="", xlab="",cex.main = ftsize , cex.lab= ftsizelb, cex.axis=ftsizeax, xlim=c(1,50), ylim=c(-1,1), cex.main = ftsize , cex.lab= ftsizelb, cex.axis=ftsizeax, col=color_l2[2], type="l", lty=2, pch="o" );
   
  
-#Evolução pandemia taxa mortes/dia
+#Deaths per day
 
 par(new = TRUE);
 plot(covid_ll[1:50,4],
@@ -305,23 +306,21 @@ plot(covid_ll[1:50,4],
         ylim= c(0,7500),
         xlim= c(1,50),
         type="l",
-        lty=1, 
+        lty=1,
         lwd=2
-        ); 
+        );
 #  grid(lty=3, lwd=1);
   abline(v=12, col="grey", lty=2, lwd=2);
-  axis (side = 4, cex.axis=ftsizeax)      
-  mtext ( "Deaths", cex = ftsizelb, side = 4, line = 3) 
-       
-  
-mypar(); 
-par(new=FALSE);
-dev.off(); #fecha saída de arquivo
-  
+  axis (side = 4, cex.axis=ftsizeax)
+  mtext ( "Deaths", cex = ftsizelb, side = 4, line = 3)
 
+
+mypar();
+par(new=FALSE);
+dev.off(); 
+  
 #colnames(dif) =  c("pvalue_rhp", "pvalue_rhn",  "rhp", "rhn", "defasagen_t");
 #rownames(dif) =  c("min","max");
-
 
 i_min_trhn <- which.min(correlacoest_rhn[4:25]) + 3;
 min_trhn <- min(correlacoest_rhn[4:25]);

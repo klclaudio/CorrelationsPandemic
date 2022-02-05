@@ -9,27 +9,27 @@
 # (February 21, 2021). 
 # Available at SSRN: https://ssrn.com/abstract=3794044 or http://dx.doi.org/10.2139/ssrn.3794044 
 #
-#
-rm(list=ls(all=TRUE));
+# v0.0 was modified by refactorings and new comments.   
+rm( list=ls(all=TRUE) );
 
-library (tidyverse);
- library (cluster);
-   library (factoextra); 
-    library (gridExtra);
-      library (dplyr);
-        library (rafalib);
+library ( tidyverse );
+ library ( cluster );
+   library ( factoextra ); 
+    library ( gridExtra );
+      library ( dplyr );
+        library ( rafalib );
 
 # corrplot
-library (zoo);
-  library (ggcorrplot);
-   library (corrplot);
-    library (GGally);
+library ( zoo );
+  library ( ggcorrplot );
+   library ( corrplot );
+    library ( GGally );
 
 # Defining date of analysis
 data_site <- 0; # 0 - use local data, 1- download from owd site
   datetemp <- Sys.Date(); # max date of the analysis;
-    date_analysis <- format(datetemp, format="%d%m%Y");
-      homeresults <- str_c("Results",date_analysis);
+    date_analysis <- format( datetemp, format="%d%m%Y" );
+      homeresults <- str_c( "Results",date_analysis );
   
 # Must config your homedir here: 
   homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
@@ -39,60 +39,61 @@ data_site <- 0; # 0 - use local data, 1- download from owd site
 
 # Work and results directories
 
-  homepca  <-  str_c(homeresults,"/PCA/");
+  homepca  <- str_c( homeresults,"/PCA/" );
   dir.create( str_c(homedir,homepca) );
   
-     homedaily <- str_c(homeresults,"/Daily/");
+     homedaily <- str_c( homeresults,"/Daily/" );
      dir.create( str_c(homedir,homedaily) );  
      
-        homecsv <- str_c(homeresults,"/CSV/");
+        homecsv <- str_c( homeresults,"/CSV/" );
         dir.create( str_c(homedir,homecsv) );
         
-           homefit <- str_c(homeresults,"/Fitting/");
+           homefit <- str_c( homeresults,"/Fitting/" );
            dir.create( str_c(homedir,homefit) );
            
-              homeCounEvol <- str_c(homeresults,"/CountriesEvolutions/");
+              homeCounEvol <- str_c( homeresults,"/CountriesEvolutions/" );
               dir.create( str_c(homedir,homeCounEvol) ); 
               
-                 homebld <- str_c(homeresults,"/BloodTypes/");
+                 homebld <- str_c( homeresults,"/BloodTypes/" );
                  dir.create( str_c(homedir,homebld) );
                  
-                    homemov <- str_c(homeresults,"/Movies/");
+                    homemov <- str_c( homeresults,"/Movies/" );
                     dir.create( str_c(homedir,homemov) );
                  
-                  homecum <-  str_c(homeresults,"/Cumulative/");
+                  homecum <- str_c( homeresults,"/Cumulative/" );
                  dir.create( str_c(homedir,homecum) );
                   
-              homenorm <- str_c(homeresults,"/Normality/");
+              homenorm <- str_c( homeresults,"/Normality/" );
               dir.create( str_c(homedir,homenorm) );
               
-           homehist <- str_c(homeresults,"/Histograms/");
+           homehist <- str_c( homeresults,"/Histograms/" );
            dir.create( str_c(homedir,homehist) );
            
-        homecorr <- str_c(homeresults,"/Correlations/");
+        homecorr <- str_c( homeresults,"/Correlations/" );
         dir.create( str_c(homedir,homecorr) );
         
-     homepval <- str_c(homeresults,"/Pvalues/");
+     homepval <- str_c( homeresults,"/Pvalues/" );
      dir.create( str_c(homedir,homepval) );  
      
-  homecoeff <- str_c(homeresults,"/Coefficients/");
+  homecoeff <- str_c( homeresults,"/Coefficients/" );
   dir.create( str_c(homedir,homecoeff) );
   
-homedata <-"files_aux/";
+homedata <- "files_aux/";
 
-getOption("warn");
-options(warn = -1)
+getOption( "warn" );
+options( warn = -1 )
 
 #functions
 
 source( str_c(homedir,"pca_abo_f.R") ); # Principal Component Analysis
-  source( str_c(homedir,"descontinuidade_f.R") ); # Temporal evolution discontinuity 
-    source( str_c(homedir, "dataowd5_site_f.R") ); # Data from owd site
-      source( str_c(homedir, "maxmin_values_f.R" ) );
+   source( str_c(homedir,"descontinuidade_f.R") ); # Temporal evolution discontinuity 
+      source( str_c(homedir, "dataowd5_site_f.R") ); # Data from owd site
+         source( str_c(homedir, "maxmin_values_f.R") );
+            source( str_c(homedir, "correlations_f.R") );
 
 #data
 
-if ( data_site ==1 ) {
+if ( data_site == 1 ) {
 
     home_site <- "https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv";
     dataowd5_site_f( date_analysis, home_site, homedir );  # data from owd site
@@ -108,9 +109,8 @@ dataowd5 <- read.csv( str_c(homedir,"dataowd5_",date_analysis,".csv") );
 # Data sorted by numbers days since five death.
 dataowd5_days <- read.csv( str_c(homedir,"dataowd5_",date_analysis,"_order.csv") );
 
-# Many countries are excluded from the analysis
+# Many countries are excluded from the analysis when use pca
 #cols: 45-populations, 44-stringency_index, 46-populations_density, 46-cardiovasc_death_rate, 47-diabetes_prevalence, 51-hospital_beds_per_thousand, 52-life_expectancy, 53-human_development_index
-#dataowd5_days <- na.omit(dataowd5_days);correlacoes <- c();
 
 head ( dataowd5[,c(4,8,9)] ); 
 head ( dataowd5_days[,c(4,8,9,45)] ); 
@@ -118,24 +118,24 @@ head ( dataowd5_days[,c(4,8,9,45)] );
 pval  <- c();
 wstat <- c();
 
-covid_ll = c();
- coeff_a = c();
-  coeff_aux = c();
-    coeff_lin = c();
+covid_ll <- c();
+  coeff_a <- c();
+    coeff_aux <- c();
+      coeff_lin <- c();
 
-errors_a = c(); 
-  errors_lin = c();
+errors_a <- c(); 
+  errors_lin <- c();
 
-r2 = c();
-  mat_coeffs_csv = c();
+r2 <- c();
+  mat_coeffs_csv <- c();
   
-mat_coefilin_csv  = c();
-   mat_statslin_csv = c(); 
-     mat_stderrlin_csv = c();
+mat_coefilin_csv  <- c();
+   mat_statslin_csv <- c(); 
+     mat_stderrlin_csv <- c();
       
-mat_coefia_csv = c();
-   mat_statsa_csv = c();
-      mat_stderra_csv = c();
+mat_coefia_csv <- c();
+   mat_statsa_csv <- c();
+      mat_stderra_csv <- c();
 
 #-----------------------------------------------------------------------------------------------
 
@@ -145,12 +145,12 @@ mat_coefia_csv = c();
    errors_correl = FALSE;
 
 # Numbers days considered since 5th death - loop i
-   N_i = 686; # Min four countries for anlysis
+   N_i = 696; # Min four countries for anlysis
 
 # Numbers days considered for fitting
-   nx = 650;
+   nx = 660;
 
-# Data: 0- witout log  transformation,  1- data with log transformation
+# Data: 0- without log  transformation,  1- data with log transformation
    logdata <- 1;
     if ( logdata == 0 ){
        type_stat = "";
@@ -202,9 +202,9 @@ for ( ll in c(1:ndata) ){
     }
 
     dimensao = dim( dataowd5 );
-     N = dimensao[1];
-      i <- 1;
-       k <- 1;
+     N <- dimensao[1];
+      i = 1;
+       k = 1;
         days <- c();
 
 # Vector positions for countries
@@ -248,11 +248,11 @@ for ( ll in c(1:ndata) ){
              diarydeaths <- c(diarydeaths,somadeaths_i);
          }
 
-          i=1;
+          i = 1;
        
       }
 
-          k=k+1;
+          k = k+1;
 
     } # End k while  
     print( "Total deaths" );
@@ -295,21 +295,13 @@ for ( ll in c(1:ndata) ){
           covid <- c();
             cumulative_covid <- c();
 
-    correlacoes <- c();
-    correlacoes_rhp <- c();
-    correlacoes_rhn <- c();
-    correlacoes_O <- c();
-    correlacoes_A <- c();
-    correlacoes_B <- c();
-    correlacoes_AB <- c();
-
-    correlacoest <- c();     correlacoest_CI <- c();
-    correlacoest_rhp <- c(); correlacoest_CI_rhp <- c();
-    correlacoest_rhn <- c(); correlacoest_CI_rhn <- c();
-    correlacoest_O <- c();   correlacoest_CI_O <- c();
-    correlacoest_A <- c();   correlacoest_CI_A <- c();
-    correlacoest_B <- c();   correlacoest_CI_B <- c();
-    correlacoest_AB <- c();  correlacoest_CI_AB <- c();
+    correlacoes <- c();      correlacoest <- c();      correlacoest_CI <- c();
+    correlacoes_rhp <- c();  correlacoest_rhp <- c();  correlacoest_CI_rhp <- c();
+    correlacoes_rhn <- c();  correlacoest_rhn <- c();  correlacoest_CI_rhn <- c();
+    correlacoes_O <- c();    correlacoest_O <- c();    correlacoest_CI_O <- c();
+    correlacoes_A <- c();    correlacoest_A <- c();    correlacoest_CI_A <- c();
+    correlacoes_B <- c();    correlacoest_B <- c();    correlacoest_CI_B <- c();
+    correlacoes_AB <- c();   correlacoest_AB <- c();   correlacoest_CI_AB <- c();
 
     p_values_histogram <- c();
     Wstatistic_histogram <- c();
@@ -319,7 +311,7 @@ for ( ll in c(1:ndata) ){
          "darkblue","green","darkslategray1","deepskyblue","darkseagreen");
          
     covid_i <- c();
-    coeff_ll <- c(); #coeficientes da análise Covid_19 - 
+    coeff_ll <- c(); #Analysis coefficients 
 
                  
 # --------------- N_i- total days since 5th death ---------------
@@ -336,7 +328,6 @@ for ( ll in c(1:ndata) ){
              aux2_percents <- c();
     maxk = maxk + daysa5[i];
 
-   
     l = 1;
     # k- numbers of countries with i days since 5th death
     for ( k in c(maxk - daysa5[i]+1: daysa5[i]) ) {
@@ -349,7 +340,7 @@ for ( ll in c(1:ndata) ){
     j = 1;
     somacovid = 0;
 
-    # Montagem da matriz de paises s e números de covid a partir da lista da owd
+    # Assembling countries and deaths from owd data
     #k- paises a i dias desde a 5a morte
     for ( k in c(1:l) ) {
        
@@ -392,12 +383,11 @@ for ( ll in c(1:ndata) ){
        
           
           if ( logdata == 1 ){
-             covid <- cbind( covid,log(as.matrix(aux[k,8])) );
+             covid <- cbind( covid, log(as.matrix(aux[k,8])) );
           }else{
-             covid <- cbind( covid,as.matrix(aux[k,8]) );
+             covid <- cbind( covid, as.matrix(aux[k,8]) );
           }   
              
-          #covid <- cbind( covid,as.matrix(aux[k,8]) );
           somacovid <- somacovid + aux[k,10];
           #print(somacovid);
           
@@ -472,7 +462,7 @@ for ( ll in c(1:ndata) ){
     
      dim_aux2 <- dim(aux2)
 
-     aux2  <- aux3[,1:(dim_aux2[2])];   #aux3 = [ Pop, ABO+, ABO-, 6VARS , covid] 
+     aux2  <- aux3[,1:(dim_aux2[2])];   #aux3 = [ Pop, ABO+, ABO-, <6VARS> , covid] 
       aux2_r <- aux3_r[,1:(dim_aux2[2])];
  
      covid <- aux3[,dim_aux2[2]+1];
@@ -507,235 +497,192 @@ for ( ll in c(1:ndata) ){
       correltest_CI_1 <- c();
      
       for ( kk in c(1:9) ){
-         
-         auxcorrel_1 <- cor.test( aux2[,kk], covid, method =  method_correl, exact=errors_correl, use = "complete_obs" );
-         #testp <- cor.test(scale( aux2[,kk]), covid, method =  method_correl, exact=errors_correl, use = "complete_obs")
-         #correltest_1[kk] <- testp$p.value;
-         correl_1 [kk] <- auxcorrel_1$estimate;
-         correltest_1[kk] <- auxcorrel_1$p.value;
+      
+        param <- c();
+        param <- correlations_f( i, ll, aux2[,kk] , covid );
+
+        correl_1 [kk] <- param[1];
+           correltest_1 [kk] <- param[2];
+              correltest_CI_1 <- cbind( correltest_CI_1, t(c(param[3], param[4])) );
+
         
-         if (i > 290 & ll> 2){  
-            correltest_CI_1 <- rbind( correltest_CI_1, c(0.0, 0.0) ); # Confidence interval
-         }else{
-            correltest_CI_1 <- rbind( correltest_CI_1, t(auxcorrel_1$conf.int[1:2]) ); # Confidence interval
-         }
-         
-      }
-      print(auxcorrel_1)
-      #correltest_1 <- cor.test(scale( aux2), covid, method =  method_correl, exact=errors_correl, use = "complete_obs");
+       }
+      
 
       correlacoes <- rbind ( correlacoes, t(correl_1) );
-      correlacoest <- rbind ( correlacoest, t(correltest_1) );
-      correlacoest_CI <- rbind ( correlacoest_CI, correltest_CI_1 ); # Confidence interval
-       
-      # ABO analysis
+         correlacoest <- rbind ( correlacoest, t(correltest_1) );
+            correlacoest_CI <- rbind ( correlacoest_CI, t(correltest_CI_1 ) );# Confidence interval
+     
+      
+      # ABO analysis 
+      # atention log(a+b) ~= loga + log b = log a*b
+      # example: log(aux2_r[,1:9] %*% c(0, 1,0,0,0, 1,0,0,0)
     
       if (logdata == 1) {  # Data with log transformations
     
-         auxcor_O <- cor.test( log(aux2_r[,1:9] %*% c(0, 1,0,0,0, 1,0,0,0)) , covid, method =  method_correl, exact=errors_correl, use = "complete_obs" ); # O
-           
-           correl_O <- auxcor_O$estimate;
-           correltest_O <- auxcor_O$p.value;
-  
-           if (i > 290 & ll> 2){  
-              correltest_CI_O <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_O <- auxcor_O$conf.int[1:2];
-           }
-       
+           param <- c();
+           param <- correlations_f( i, ll, log(aux2_r[,1:9] %*% c(0, 1,0,0,0, 1,0,0,0)), covid );
+             
+           correl_O <- param[1];
+              correltest_O <- param[2];
+                 correltest_CI_O <- c(param[3],param[4]);
+
            correlacoes_O <- rbind( correlacoes_O, t(correl_O) );
-           correlacoest_O<-rbind( correlacoest_O, t(correltest_O) );
-           correlacoest_CI_O <- rbind ( correlacoest_CI_O, t(correltest_CI_O) )
-      
-         auxcor_A <- cor.test( log(aux2_r[,1:9] %*% c(0, 0,1,0,0, 0,1,0,0)) , covid, method =  method_correl, exact=errors_correl, use = "complete_obs" ); # A
-    
-           correl_A <- auxcor_A$estimate;
-           correltest_A <- auxcor_A$p.value;
-           correltest_CI_A <- auxcor_A$conf.int[1:2];
-        
-           if (i > 290 & ll> 2){  
-              correltest_CI_A <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_A <- auxcor_A$conf.int[1:2];
-           }
-           correlacoes_A <- rbind( correlacoes_A, t(correl_A) );
-           correlacoest_A <- rbind( correlacoest_A, t(correltest_A) );
-           correlacoest_CI_A <- rbind ( correlacoest_CI_A, t(correltest_CI_A) );
-      
-        auxcor_B <- cor.test( log(aux2_r[,1:9] %*% c(0, 0,0,1,0, 0,0,1,0)) , covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # B
+              correlacoest_O <-rbind( correlacoest_O, t(correltest_O) );
+                 correlacoest_CI_O <- rbind ( correlacoest_CI_O, t(correltest_CI_O) )
+          
+                 
+          param <- c();
+          param <- correlations_f( i, ll, log(aux2_r[,1:9] %*% c(0, 0,1,0,0, 0,1,0,0)), covid);               
+          
+          correl_A <- param[1];
+             correltest_A <- param[2];
+                correltest_CI_A <- c(param[3], param[4]);
+          
+          correlacoes_A <- rbind( correlacoes_A, t(correl_A) );
+             correlacoest_A <- rbind( correlacoest_A, t(correltest_A) );
+                correlacoest_CI_A <- rbind ( correlacoest_CI_A, t(correltest_CI_A) );
+
+          
+          param <- c();
+          param <- correlations_f( i, ll, log(aux2_r[,1:9] %*% c(0, 0,0,1,0, 0,0,1,0)), covid );
+          
+          correl_B <- param[1];
+             correltest_B <- param[2];
+                correltest_CI_B <- c(param[3],param[4]);
+
+          correlacoes_B <- rbind( correlacoes_B, t(correl_B) );
+             correlacoest_B <- rbind( correlacoest_B, t(correltest_B) );
+                correlacoest_CI_B <- rbind ( correlacoest_CI_B, t(correltest_CI_B) );
            
-           correl_B <- auxcor_B$estimate;
-           correltest_B <- auxcor_B$p.value;
-           correltest_CI_B <- auxcor_B$conf.int[1:2];
-         
-           if (i > 290 & ll> 2){  
-              correltest_CI_B <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_B <- auxcor_B$conf.int[1:2];
-           }
-           
-           correlacoes_B <- rbind( correlacoes_B, t(correl_B) );
-           correlacoest_B <- rbind( correlacoest_B, t(correltest_B) );
-           correlacoest_CI_B <- rbind ( correlacoest_CI_B, t(correltest_CI_B) );
-      
-        auxcor_AB <- cor.test( log(aux2_r[,1:9] %*% c(0, 0,0,0,1, 0,0,0,1)) , covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # AB
-           
-           correl_AB <- auxcor_AB$estimate;
-           correltest_AB <- auxcor_AB$p.value;
-           correltest_CI_AB <- auxcor_AB$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_AB <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_AB <- auxcor_AB$conf.int[1:2];
-           }
-           
-           correlacoes_AB <- rbind( correlacoes_AB, t(correl_AB) );
-           correlacoest_AB <- rbind( correlacoest_AB, t(correltest_AB) );
-           correlacoest_CI_AB <- rbind ( correlacoest_CI_AB, t(correltest_CI_AB) );
+ 
+          param <- c();
+          param <- correlations_f( i, ll, log(aux2_r[,1:9] %*% c(0, 0,0,0,1, 0,0,0,1)), covid );
+          
+          correl_AB <- param[1];
+             correltest_AB <- param[2];
+                correltest_CI_AB <- c(param[3],param[4]);
+          
+          correlacoes_AB <- rbind( correlacoes_AB, t(correl_AB) );
+             correlacoest_AB <- rbind( correlacoest_AB, t(correltest_AB) );
+                correlacoest_CI_AB <- rbind ( correlacoest_CI_AB, t(correltest_CI_AB) );
+
     
      # Rh factor analysis
-        auxcor_rhp <- cor.test(log( aux2_r [,2:5]  %*% vet_ones), covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # rh+
-           
-           correl_rhp <- auxcor_rhp$estimate;
-           correltest_rhp <- auxcor_rhp$p.value;
-           correltest_CI_rhp <- auxcor_rhp$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_rhp <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_rhp <- auxcor_rhp$conf.int[1:2];
-           }
-   
-           correlacoes_rhp <- rbind( correlacoes_rhp, t(correl_rhp) );
-           correlacoest_rhp <- rbind( correlacoest_rhp, t(correltest_rhp) );
-           correlacoest_CI_rhp <- rbind ( correlacoest_CI_rhp, t(correltest_CI_rhp) );
-           
-        auxcor_rhn <- cor.test( log(aux2_r[,6:9]  %*% vet_ones), covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # rh-
-           
-           correl_rhn <- auxcor_rhn$estimate;
-           correltest_rhn <- auxcor_rhn$p.value;
-           correltest_CI_rhn <- auxcor_rhn$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_rhn <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_rhn <- auxcor_rhn$conf.int[1:2];
-           }
-           
-           correlacoes_rhn  <- rbind( correlacoes_rhn, t(correl_rhn) );
-           correlacoest_rhn <- rbind( correlacoest_rhn, t(correltest_rhn) );
-           correlacoest_CI_rhn <- rbind ( correlacoest_CI_rhn, t(correltest_CI_rhn) );  
-      
-    }else{ # Original data (without log transformations)
-  
-        auxcor_O <- cor.test( aux2 [,1:9] %*% c(0, 1,0,0,0, 1,0,0,0) , covid, method =  method_correl, exact=errors_correl, use = "complete_obs" ); # O
         
-           correl_O <- auxcor_O$estimate;
-           correltest_O <- auxcor_O$p.value;
-  
-           if (i > 290 & ll> 2){  
-              correltest_CI_O <- c(0.0, 0.0); # Confidence interval
-           }else{
-             correltest_CI_O <- auxcor_O$conf.int[1:2];
-           }
+          param <- c();
+          param <- correlations_f( i, ll,log(aux2_r [,2:5]  %*% vet_ones), covid );
+          
+          correl_rhp <- param[1];
+             correltest_rhp <- param[2];
+                correltest_CI_rhp <- c(param[3],param[4]);
+          
+          correlacoes_rhp <- rbind( correlacoes_rhp, t(correl_rhp) );
+             correlacoest_rhp <- rbind( correlacoest_rhp, t(correltest_rhp) );
+                correlacoest_CI_rhp <- rbind ( correlacoest_CI_rhp, t(correltest_CI_rhp) );
            
-           correlacoes_O <- rbind( correlacoes_O, t(correl_O) );
-           correlacoest_O<-rbind( correlacoest_O, t(correltest_O) );
-           correlacoest_CI_O <- rbind ( correlacoest_CI_O, t(correltest_CI_O) )
-           
-        auxcor_A <- cor.test( aux2 [,1:9] %*% c(0, 0,1,0,0, 0,1,0,0) , covid, method =  method_correl, exact=errors_correl, use = "complete_obs" ); # A
+          param <- c();
+          param <- correlations_f( i, ll, log(aux2_r[,6:9]  %*% vet_ones), covid );
+          
+          correl_rhn <- param[1];
+             correltest_rhn <- param[2];
+                correltest_CI_rhn <- c(param[3],param[4]);
 
-           correl_A <- auxcor_A$estimate;
-           correltest_A <- auxcor_A$p.value;
-           correltest_CI_A <- auxcor_A$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_A <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_A <- auxcor_A$conf.int[1:2];
-           }
-        
-           correlacoes_A <- rbind( correlacoes_A, t(correl_A) );
-           correlacoest_A <- rbind( correlacoest_A, t(correltest_A) );
-           correlacoest_CI_A <- rbind ( correlacoest_CI_A, t(correltest_CI_A) );
+          correlacoes_rhn  <- rbind( correlacoes_rhn, t(correl_rhn) );
+             correlacoest_rhn <- rbind( correlacoest_rhn, t(correltest_rhn) );
+                correlacoest_CI_rhn <- rbind ( correlacoest_CI_rhn, t(correltest_CI_rhn) );
+
+
       
-        auxcor_B <- cor.test( aux2 [,1:9] %*% c(0, 0,0,1,0, 0,0,1,0) , covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # B
-           correl_B <- auxcor_B$estimate;
-           correltest_B <- auxcor_B$p.value;
-           correltest_CI_B <- auxcor_B$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_B <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_B <- auxcor_B$conf.int[1:2];
-           }
-           
-           correlacoes_B <- rbind( correlacoes_B, t(correl_B) );
-           correlacoest_B <- rbind( correlacoest_B, t(correltest_B) );
-           correlacoest_CI_B <- rbind ( correlacoest_CI_B, t(correltest_CI_B) );
-      
-        auxcor_AB <- cor.test( aux2 [,1:9] %*% c(0, 0,0,0,1, 0,0,0,1) , covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # AB
-           
-           correl_AB <- auxcor_AB$estimate;
-           correltest_AB <- auxcor_AB$p.value;
-           correltest_CI_AB <- auxcor_AB$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_AB <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_AB <- auxcor_AB$conf.int[1:2];
-           }
-           
-           correlacoes_AB <- rbind( correlacoes_AB, t(correl_AB) );
-           correlacoest_AB <- rbind( correlacoest_AB, t(correltest_AB) );
-           correlacoest_CI_AB <- rbind ( correlacoest_CI_AB, t(correltest_CI_AB) );
-    
-    # Rh factor analysis
-        auxcor_rhp <- cor.test( aux2 [,2:5]  %*% vet_ones, covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # rh+
-           correl_rhp <- auxcor_rhp$estimate;
-           correltest_rhp <- auxcor_rhp$p.value;
-           correltest_CI_rhp <- auxcor_rhp$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_rhp <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_rhp <- auxcor_rhp$conf.int[1:2];
-           }
-   
-           correlacoes_rhp <- rbind( correlacoes_rhp, t(correl_rhp) );
-           correlacoest_rhp <- rbind( correlacoest_rhp, t(correltest_rhp) );
-           correlacoest_CI_rhp <- rbind ( correlacoest_CI_rhp, t(correltest_CI_rhp) );
-      
-        auxcor_rhn <- cor.test( aux2 [,6:9]  %*% vet_ones, covid , method =  method_correl, exact=errors_correl, use = "complete_obs" ); # rh-
-           
-           correl_rhn <- auxcor_rhn$estimate;
-           correltest_rhn <- auxcor_rhn$p.value;
-           correltest_CI_rhn <- auxcor_rhn$conf.int[1:2];
-           
-           if (i > 290 & ll> 2){  
-              correltest_CI_rhn <- c(0.0, 0.0); # Confidence interval
-           }else{
-              correltest_CI_rhn <- auxcor_rhn$conf.int[1:2];
-           }
-           
-           correlacoes_rhn  <- rbind( correlacoes_rhn, t(correl_rhn) );
-           correlacoest_rhn <- rbind( correlacoest_rhn, t(correltest_rhn) );
-           correlacoest_CI_rhn <- rbind ( correlacoest_CI_rhn, t(correltest_CI_rhn) );  
-      
-    } # End if data with log transformations
-    
-#---------------------- Out results for each day  -------------------
+     }else{ # Original data (without log transformations)
+       param <- c();
+       param <- correlations_f( i, ll, (aux2[,1:9] %*% c(0, 1,0,0,0, 1,0,0,0)), covid );
        
-# Pictures of log(bloodtypes) and covid
+       correl_O <- param[1];
+       correltest_O <- param[2];
+       correltest_CI_O <- c(param[3],param[4]);
+       
+       correlacoes_O <- rbind( correlacoes_O, t(correl_O) );
+       correlacoest_O <-rbind( correlacoest_O, t(correltest_O) );
+       correlacoest_CI_O <- rbind ( correlacoest_CI_O, t(correltest_CI_O) )
+       
+       
+       param <- c();
+       param <- correlations_f( i, ll, (aux2[,1:9] %*% c(0, 0,1,0,0, 0,1,0,0)), covid);               
+       
+       correl_A <- param[1];
+       correltest_A <- param[2];
+       correltest_CI_A <- c(param[3], param[4]);
+       
+       correlacoes_A <- rbind( correlacoes_A, t(correl_A) );
+       correlacoest_A <- rbind( correlacoest_A, t(correltest_A) );
+       correlacoest_CI_A <- rbind ( correlacoest_CI_A, t(correltest_CI_A) );
+       
+       
+       param <- c();
+       param <- correlations_f( i, ll, (aux2[,1:9] %*% c(0, 0,0,1,0, 0,0,1,0)), covid );
+       
+       correl_B <- param[1];
+       correltest_B <- param[2];
+       correltest_CI_B <- c(param[3],param[4]);
+       
+       correlacoes_B <- rbind( correlacoes_B, t(correl_B) );
+       correlacoest_B <- rbind( correlacoest_B, t(correltest_B) );
+       correlacoest_CI_B <- rbind ( correlacoest_CI_B, t(correltest_CI_B) );
+       
+       
+       param <- c();
+       param <- correlations_f( i, ll, (aux2[,1:9] %*% c(0, 0,0,0,1, 0,0,0,1)), covid );
+       
+       correl_AB <- param[1];
+       correltest_AB <- param[2];
+       correltest_CI_AB <- c(param[3],param[4]);
+       
+       correlacoes_AB <- rbind( correlacoes_AB, t(correl_AB) );
+       correlacoest_AB <- rbind( correlacoest_AB, t(correltest_AB) );
+       correlacoest_CI_AB <- rbind ( correlacoest_CI_AB, t(correltest_CI_AB) );
+       
+       
+       # Rh factor analysis
+       
+       param <- c();
+       param <- correlations_f( i, ll,(aux2 [,2:5]  %*% vet_ones), covid );
+       
+       correl_rhp <- param[1];
+       correltest_rhp <- param[2];
+       correltest_CI_rhp <- c(param[3],param[4]);
+       
+       correlacoes_rhp <- rbind( correlacoes_rhp, t(correl_rhp) );
+       correlacoest_rhp <- rbind( correlacoest_rhp, t(correltest_rhp) );
+       correlacoest_CI_rhp <- rbind ( correlacoest_CI_rhp, t(correltest_CI_rhp) );
+       
+       param <- c();
+       param <- correlations_f( i, ll, (aux2[,6:9]  %*% vet_ones), covid );
+       
+       correl_rhn <- param[1];
+       correltest_rhn <- param[2];
+       correltest_CI_rhn <- c(param[3],param[4]);
+       
+       correlacoes_rhn  <- rbind( correlacoes_rhn, t(correl_rhn) );
+       correlacoest_rhn <- rbind( correlacoest_rhn, t(correltest_rhn) );
+       correlacoest_CI_rhn <- rbind ( correlacoest_CI_rhn, t(correltest_CI_rhn) );
+    
+} # End if data with log transformations
+
+      
+#---------------------- Out results for each day i -------------------
+
     if ( pca_expanded == 1 ){
+      
         if ( ll == 1 | ll == 3 | ll == 4){
            source( str_c(homedir,"aux4pca.R") );
         }
+    
     }
       
     source( str_c(homedir,"coefficients.R") );
-    
+
+# Pictures of log(bloodtypes) and covid    
     if ( i == 120 ){
           
         if ( logdata == 1 ){
@@ -754,9 +701,11 @@ for ( ll in c(1:ndata) ){
     source( str_c(homedir,"histograms_tests.R") );            
 
 # Evolutions of covid ordered for each day.
+    
     source( str_c(homedir,"covid_evolution.R") );   
     print( dim(aux2) ); 
 
+      
  } # End loop i for N_i days since 5a death.
 
         
@@ -787,20 +736,21 @@ for ( ll in c(1:ndata) ){
 } # End  ll loop (countries sets)
   print( "End loop ll" );
 
-# Daily deaths plots 
+# Daily deaths plots  - valid for N_i > 35
  if ( N_i > 35 ){
+   
      source( str_c(homedir, "days_covid.R") ); 
+   
  }
  
 # Normality plots from each analysis
-#   source( str_c(homedir,"plot_normality_all.R");
+#   source( str_c( homedir, homenorm, "plot_normality_all.R" );
 
-# Max end min values of correlations 
+# Max and min values of correlations 
    maxmin_values_f( homedir, homecsv, N_i, nx, type_stat ); 
    
 # Comparative graphics of pvalues and correlations 
    source( str_c(homedir, "pvalues_dif.R") ); 
-
 
 # Fit polinomial  correlations
    source( str_c(homedir, "fittingLog2.R") );

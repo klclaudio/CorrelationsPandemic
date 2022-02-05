@@ -1,77 +1,33 @@
+#
+# Fitting correlations and it saves results files in the folder <homefit>
+#
+
 library (tidyverse);
-library (cluster);
-library (factoextra);
-library (gridExtra);
-library (dplyr);
-library (rafalib);
-#library (Rmpfr);
-#library (pracma);
+  library (cluster);
+    library (factoextra);
+      library (gridExtra);
+        library (dplyr);
+         library (rafalib);
 
 
 correlacoes1 <- read.csv( str_c(homedir,homecsv,"bloodcovid_correls_Log.csv" ));
-correlacoes2 <- read.csv( str_c(homedir,homecsv,"bloodcovidOutCH_I_correls_Log.csv" ));
-correlacoes3 <- read.csv( str_c(homedir,homecsv,"bloodcovid_outlarger_correls_Log.csv" ));
-correlacoes4 <- read.csv( str_c(homedir,homecsv,"bloodcovidlarger_correls_Log.csv" ));
-
-# Funçoes para M.M.Q. e converção de coeficientes Ortogonais para Naturais(Raw)
-#source(homedir,"funcoes_poly.R");
+  correlacoes2 <- read.csv( str_c(homedir,homecsv,"bloodcovidOutCH_I_correls_Log.csv" ));
+    correlacoes3 <- read.csv( str_c(homedir,homecsv,"bloodcovid_outlarger_correls_Log.csv" ));
+      correlacoes4 <- read.csv( str_c(homedir,homecsv,"bloodcovidlarger_correls_Log.csv" ));
 
 
 # Correlations : 
 coefi<-c();
 
-#nx=460 #dimensão para métodos dos mínimos quadrados
-nx = N_i- 40
-x = c(1:nx)/100;         #vetor com dimensão para métodos dos mínimos quadrados
-xx <- c(1:(N_i))/100;      #vetor com dimensão para gráficos de todos os dados
-q = x;
+nx = N_i - 40
+   x <- c(1:nx)/100;         #vetor com dimensão para métodos dos mínimos quadrados
+     xx <- c(1:(N_i))/100;      #vetor com dimensão para gráficos de todos os dados
+       q <- x;
+   
 ftsizeax = 1.3;
-ftsizelb = 1.5;
-ftsize=1.5;
+  ftsizelb = 1.5;
+    ftsize=1.5;
 xlimite = c(0.01,(N_i/100));
-
-
-# for (iiii in c(1:4)){
-# 
-#        
-#     if(iiii==1){correlacoes <- correlacoes1
-#       }else if(iiii==2){correlacoes <- correlacoes2
-#       }else if(iiii==3){correlacoes <- correlacoes3
-#       }else if(iiii==4){correlacoes <- correlacoes4
-#     }
-#     if (iiii != 4) {
-#        ylimite = c(-0.1,1)
-#     } else{
-#        ylimite = c(-1,1) 
-#     }
-# 
-#    coefi<-c();
-#    maxresiduals <- c();
-#    for (iii in c(1:15)){
-# 
-#       #q=c(1:120); 
-#       q=x;
-#       plot( xx,correlacoes[1:(N_i),2*iii], col='deepskyblue4', xlab='Days x 10²', main='Correlations', ylab = "Coefficients",
-#             xlim = xlimite, ylim = ylimite, cex.main = ftsize ,  cex.lab = ftsizelb, cex.axis = ftsizeax, pch = 1, cex = 0.5 );
-#  #     model <- lm(correlacoes[1:nx,2*iii] ~ poly(q,11)) #polinomios ortogonais Gram-Schimidt
-#       model <- lm( correlacoes[1:nx,2*iii] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
-#       predicted.intervals <- predict( model,data.frame(x=q),interval='confidence', level=0.95 );
-# #      coefi <- rbind( coefi, model[["coefficients"]] );
-#       par( new = TRUE );
-#       plot( q, predicted.intervals[,1], ylab = "", xlab = "",
-#             xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, type = "l", col = 'red', lwd = 1.5 );
-# #      maxresiduals <- rbind( maxresiduals, max(model[["residuals"]]) );
-# #      out_model=summary(model)$coef;
-# #      stderrors <- rbind( stderrors,out_model[,2] );
-# # plot(q,predicted.intervals[,2],col='black',lwd=1)
-# # plot(q,predicted.intervals[,3],col='black',lwd=1)
-# # legend("bottomright",c("Observ.","Signal","Predicted"),col=c("deepskyblue4","red","green"), lwd=3)
-#       
-#       
-#       
-#       par( new = FALSE )
-#    } 
-#  }
 #  
 # 
 #             Gráficos em blocos
@@ -83,10 +39,6 @@ coefipop<-c();
 stats_residualspop <- c();
 stderrorspop  <- c();
 
-# nx= 460 dimensão para métodos dos mínimos quadrados
-# x=c(1:nx)/100;         #vetor com dimensão para métodos dos mínimos quadrados
-# xx<-c(1:N_i)/100       #vetor com dimensão para gráficos de todos os dados
-# q=x;
 
 # ftsizeax = 1.3;
 # ftsizelb = 1.5;
@@ -123,16 +75,7 @@ for (iiii in c(1:4)){
    plot( xx,correlacoes[1:N_i,2], main="", ylab="", xlab="",
           xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, cex=0.7, lwd=0.5, lty=1) #Population
          
-#      correlacoesmpfr <- mpfr(correlacoes[,2],53);
-#      xx <- mpfr(xx,53);
-#      model <- lm(correlacoes_mpfr~ xx + I(xx^2) + I(xx^3) + I(xx^4) + I(xx^5) + I(xx^6) + I(xx^7) + I(xx^8) + I(xx^9) + I(xx^10)+ I(xx^11) );
-#      predicted.intervals <- predict( model,data.frame(x=xx),interval='confidence', level=0.95 );
-#      correlacoes <- correlacoes[,2];
-#      correlacoes<-correlacoesmpfr
       model <- lm(correlacoes[1:nx,2]~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10)+ I(x^11) );
-      #model <- lm(correlacoes[1:nx,2]~ poly(xx,11, raw=TRUE) ); #Equivalente ao model anterior sem base ortogonais
-#     model <- lm(correlacoes[15:140,2]~ xx + I(xx^2) + I(xx^3) + I(xx^4) + I(xx^5) + I(xx^6) + I(xx^7) + I(xx^8) );
-      #coefipop <-  rbind( coefipop, model[["coefficients"]] );
       predicted.intervals <- predict( model,data.frame(x=q),interval='confidence', level=0.95 );
       par( new = TRUE);
       plot( q,predicted.intervals[,1],ylab="", xlab="",
@@ -168,11 +111,6 @@ stderrors  <- c();
 # ftsize=1.5;
 # xlimite = c(0.01,5.00);
 color_l = c("red","blue","black","cyan2");
-
-# nx=460 #dimensão para métodos dos mínimos quadrados
-# x=c(1:nx)/100;         #vetor com dimensão para métodos dos mínimos quadrados
-# xx<-c(1:500)/100       #vetor com dimensão para gráficos de todos os dados
-# q=x;
 
 
 for (iiii in c(1:4)){
@@ -383,7 +321,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
     }else{
         legend("bottomright", legend=c("A","O","B","AB"), col = color_l, lty=c(1,2,3,6), bty="n", lwd=2, cex=1.0, bg='white');
    }
-      #plot(x,correlacoes[1:nx,20], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6, pch=4); #AB-
+     
       model <- lm(correlacoes[1:nx,20] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
@@ -408,7 +346,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
 
    plot(xx,correlacoes[1:N_i,22], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=1);
   
-         #plot(x,correlacoes[1:nx,22], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6, pch=4); #AB-
+       
       model <- lm(correlacoes[1:nx,22] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
@@ -429,7 +367,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
 
 #if (iiii != 4) 
    plot(xx,correlacoes[1:N_i,24], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3);
-      #plot(x,correlacoes[1:nx,24], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6, pch=4); #AB-
+     
       model <- lm(correlacoes[1:nx,24] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
@@ -449,7 +387,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
    par(new = TRUE)
 
    plot(xx,correlacoes[1:N_i,26], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6);
-      #plot(x,correlacoes[1:nx,26], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6, pch=4); #AB-
+      
       model <- lm(correlacoes[1:nx,26] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
@@ -470,7 +408,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
  
  plot(xx,correlacoes[1:N_i,28],  main="Rhesus(Rh) System (d)", ylab="Correlations", xlab="Days since five deaths (x 10²)",
       xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.4, lty=2);
-     #plot(x,correlacoes[1:nx,28], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6, pch=4); #AB-
+    
       model <- lm(correlacoes[1:nx,28] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );;
@@ -497,7 +435,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
   
    par(new = TRUE);
    plot(xx,correlacoes[1:N_i,30], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.4, lty=2);
-    #plot(x,correlacoes[1:nx,30], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, lty=6, pch=4); #AB-
+    
     model <- lm(correlacoes[1:nx,30] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
     #model <- lm(correlacoes[1:nx,30] ~ poly(q,11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
@@ -518,25 +456,22 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       coefi <-  rbind( coefi, c(model[["coefficients"]], ResidualStandardError, CoeficienteDeterminacao) );
    
 par(new = FALSE);
-dev.off(); #fecha saída de arquivo    
+dev.off(); 
  
-} #for iiii
+} #End loop iiii
 
 
-#source( str_c(homedir,"fittingLog2_aux.R") )
 
-
-# estatisticas dos 4 conjuntos de países (1,2,3,4) e cada um com 14 análises dos tipos sanguíneos (a, b, c, d).
-# c( "O.","A.","B.","AB.",   "O..1","A..1","B..1","AB..1",  "Correl_O","Correl_A","Correl_B","Correl_AB",  "Correl_rhp","Correl_rhn");
+# Statistics from countries sets (1,2,3,4)
 # c( "O.","A.","B.","AB.",   "O..1","A..1","B..1","AB..1",  "Correl_O","Correl_A","Correl_B","Correl_AB",  "Correl_rhp","Correl_rhn");
 
-write.csv( coefipop, str_c(homedir, homefit, "stats_correlationspop_LOG_", nx , ".csv") );
+write.csv( coefipop, str_c(homedir, homefit, "stats_correlationspop", type_stat , "_", nx , ".csv") );
 
-write.csv( coefi, str_c(homedir, homefit, "stats_correlations_LOG_", nx , ".csv") );
+write.csv( coefi, str_c(homedir, homefit, "stats_correlations", type_stat ,"_", nx , ".csv") );
 
-write.csv( stats_residuals, str_c(homedir, homefit,  "stats_fit_residuals_LOG_", nx , ".csv") );
+write.csv( stats_residuals, str_c(homedir, homefit,  "stats_fit_residuals", type_stat , "_", nx , ".csv") );
 
-write.csv( stderrors, str_c(homedir, homefit,  "stats_errors_coefi_LOG_", nx , ".csv") )
+write.csv( stderrors, str_c(homedir, homefit,  "stats_errors_coefi", type_stat , "_", nx , ".csv") )
 
 
  
