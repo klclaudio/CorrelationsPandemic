@@ -133,9 +133,11 @@ mat_coefilin_csv  <- c();
    mat_statslin_csv <- c(); 
      mat_stderrlin_csv <- c();
       
+
 mat_coefia_csv <- c();
    mat_statsa_csv <- c();
       mat_stderra_csv <- c();
+
 
 #-----------------------------------------------------------------------------------------------
 
@@ -528,6 +530,7 @@ for ( ll in c(1:ndata) ){
                  correltest_CI_O <- c(param[3],param[4]);
 
            correlacoes_O <- rbind( correlacoes_O, t(correl_O) );
+
               correlacoest_O <-rbind( correlacoest_O, t(correltest_O) );
                  correlacoest_CI_O <- rbind ( correlacoest_CI_O, t(correltest_CI_O) )
           
@@ -554,7 +557,7 @@ for ( ll in c(1:ndata) ){
           correlacoes_B <- rbind( correlacoes_B, t(correl_B) );
              correlacoest_B <- rbind( correlacoest_B, t(correltest_B) );
                 correlacoest_CI_B <- rbind ( correlacoest_CI_B, t(correltest_CI_B) );
-           
+        
  
           param <- c();
           param <- correlations_f( i, ll, log(aux2_r[,1:9] %*% c(0, 0,0,0,1, 0,0,0,1)), covid );
