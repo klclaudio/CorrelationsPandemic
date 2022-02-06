@@ -1,35 +1,32 @@
-# Grafico do número diário de Covid
+# 
+# Defines Max and Min correlations and it saves results in the folder <homecsv>
+#
 maxmin_values_f <- function (homedir, homecsv, N_i, nx, type_stat) {
 
 vfilesout=c();               
-if (logdata==0){                      #arquivos das correlações dos dados SEM transformações logarítmicas
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_correls.csv") );
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidOutCH_I_correls.csv") );
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_outlarger_correls.csv") );
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidlarger_correls.csv") );
-}else{                                #arquivos das correlações dos dados COM transformações logarítmicas
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_correls_Log.csv") );
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidOutCH_I_correls_Log.csv") );
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_outlarger_correls_Log.csv") );
-   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidlarger_correls_Log.csv") );
-}
+  vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_correls",type_stat,".csv") );
+    vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidOutCH_I_correls",type_stat,".csv") );
+      vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_outlarger_correls",type_stat,".csv") );
+        vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidlarger_correls",type_stat,".csv") );
+
 
 inf_I = c( 35, 35, 35, 35 );
-if (logdata==1){                  #dados com transformações log
+ 
+if (logdata==1){ #with log transformations                  
     sup_I = c( 120, 120, 120, 140 );
-}else{                             #dados sem transformações log  
+}else{                             
     sup_I = c( 140, 130, 125, 130 );
 }
 
-if (logdata==1 & N_i==295){                  #dados com transformações log
+if (logdata==1 & N_i==295){               
     sup_I = c( 250, 250, 250, 250 );
-}else{                             #dados sem transformações log  
+}else{                             
     sup_I = c( 250, 250, 250, 250 );
 }
 
-if (logdata==1 & N_i > 580){                  #dados com transformações log
+if (logdata==1 & N_i > 580){                 
   sup_I = c( 1, 1, 1, 1 ) * nx;
-}else{                             #dados sem transformações log  
+}else{                            
   sup_I = c( 1, 1,1, 1 )* nx ;
 }
 
@@ -40,7 +37,8 @@ I=c();
  vec_pv <- c();
  auxcorrels <- c();
  max_correls <- c();
- # Analises j: 1, 2, 3 e 4
+
+ # Analysis j: 1, 2, 3 and 4
  j=1
  for ( j in c( 1:4 ) ){
   max_correls <- c();
@@ -60,7 +58,7 @@ I=c();
         vec_pv <- correl_pvalues[, 2*k+1];
           max_vec <- max(vec[I]);
             ivec <- which.max(vec[I]);
-          max_CI <-  mat_ci [ivec,(2*k-1):(2*k)]; # Matriz de Intervalos de confiança
+          max_CI <-  mat_ci [ivec,(2*k-1):(2*k)]; # Condidence Intervals
         auxc <- c(max_vec, vec_pv[ivec+I[1]-1], ivec+I[1]-1, max_CI);
       aux_correls <- rbind ( aux_correls, auxc );
          
@@ -78,6 +76,7 @@ I=c();
  }  #end for j
 
 
-teste<-1
-return(teste) 
-} # finish function maxmin_values
+teste <- 1
+return(teste);
+} #End maxmin fuction
+
