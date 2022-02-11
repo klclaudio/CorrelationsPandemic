@@ -1,5 +1,5 @@
 #
-# Fitting correlations and it saves results files in the folder <homefit>
+# Fitting correlations and saves results files in the folder <homefit>
 #
 
 library (tidyverse);
@@ -10,27 +10,27 @@ library (tidyverse);
          library (rafalib);
 
 
-correlacoes1 <- read.csv( str_c(homedir,homecsv,"bloodcovid_correls_Log.csv" ));
-  correlacoes2 <- read.csv( str_c(homedir,homecsv,"bloodcovidOutCH_I_correls_Log.csv" ));
-    correlacoes3 <- read.csv( str_c(homedir,homecsv,"bloodcovid_outlarger_correls_Log.csv" ));
-      correlacoes4 <- read.csv( str_c(homedir,homecsv,"bloodcovidlarger_correls_Log.csv" ));
+correlacoes1 <- read.csv( vfilesout[1] ) #"bloodcovid_correls_Log.csv"
+  correlacoes2 <- read.csv( vfilesout[2] ) #"bloodcovidOutCH_I_correls_Log.csv"
+    correlacoes3 <- read.csv( vfilesout[3] ) #"bloodcovid_outlarger_correls_Log.csv" 
+      correlacoes4 <- read.csv( vfilesout[4] ) #"bloodcovidlarger_correls_Log.csv"
 
 
 # Correlations : 
 coefi<-c();
 
 nx = N_i - 40
-   x <- c(1:nx)/100;         #vetor com dimensão para métodos dos mínimos quadrados
-     xx <- c(1:(N_i))/100;      #vetor com dimensão para gráficos de todos os dados
+   x <- c(1:nx)/100;         #vector fitting
+     xx <- c(1:(N_i))/100;      #plot axis
        q <- x;
    
 ftsizeax = 1.3;
   ftsizelb = 1.5;
     ftsize=1.5;
 xlimite = c(0.01,(N_i/100));
-#  
+
 # 
-#             Gráficos em blocos
+#     Plots
 #
 
 
@@ -467,13 +467,13 @@ dev.off();
 
 write.csv( coefipop, str_c(homedir, homefit, "stats_correlationspop", type_stat , "_", nx , ".csv") );
 
-write.csv( coefi, str_c(homedir, homefit, "stats_correlations", type_stat ,"_", nx , ".csv") );
+   write.csv( coefi, str_c(homedir, homefit, "stats_correlations", type_stat ,"_", nx , ".csv") );
 
-write.csv( stats_residuals, str_c(homedir, homefit,  "stats_fit_residuals", type_stat , "_", nx , ".csv") );
+      write.csv( stats_residuals, str_c(homedir, homefit,  "stats_fit_residuals", type_stat , "_", nx , ".csv") );
 
-write.csv( stderrors, str_c(homedir, homefit,  "stats_errors_coefi", type_stat , "_", nx , ".csv") )
+         write.csv( stderrors, str_c(homedir, homefit,  "stats_errors_coefi", type_stat , "_", nx , ".csv") )
 
-
+#End fitting
  
 
 

@@ -1,13 +1,13 @@
 # 
 # Defines Max and Min correlations and it saves results in the folder <homecsv>
 #
-maxmin_values_f <- function (homedir, homecsv, N_i, nx, type_stat) {
+maxmin_values_f <- function (homedir, homecsv, N_i, nx, vfilesout) {
 
-vfilesout=c();               
-  vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_correls",type_stat,".csv") );
-    vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidOutCH_I_correls",type_stat,".csv") );
-      vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_outlarger_correls",type_stat,".csv") );
-        vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidlarger_correls",type_stat,".csv") );
+# vfilesout=c();               
+#   vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_correls_",type_stat,".csv") );
+#     vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidOutCH_I_correls_",type_stat,".csv") );
+#       vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovid_outlarger_correls_",type_stat,".csv") );
+#         vfilesout <- rbind(vfilesout, str_c ( homedir,homecsv,"bloodcovidlarger_correls_",type_stat,".csv") );
 
 
 inf_I = c( 35, 35, 35, 35 );
