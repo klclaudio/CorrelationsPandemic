@@ -30,4 +30,4 @@ correlations_f <- function( i, ll, vet_test, covid ) {
   param <- cbind(param, t(correltest_CI_abo));
 
   return(param)
-} # End function correlations
+} # End correlations
