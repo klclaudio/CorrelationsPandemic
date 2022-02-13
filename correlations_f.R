@@ -1,5 +1,5 @@
 #
-# This function calculates correlations  between vet_test and covid vectors. 
+# This function calculates correlations between vet_test and covid vectors. 
 #
 # i- days since 5th deaths
 # ll- set of countries 
