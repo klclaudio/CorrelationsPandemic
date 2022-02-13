@@ -31,7 +31,7 @@ library( zoo );
     library( GGally );
 
 # Defining max date of analysis
-data_site <- 0; # 0 - use previously downloaded data, 1- download from owd site
+data_site <- 1; # 0 - use previously downloaded data, 1- download from owd site
   datetemp <- Sys.Date(); # max date of the analysis;
     date_analysis <- format( datetemp, format="%d%m%Y" );
       homeresults <- str_c( "Results", date_analysis );
@@ -99,7 +99,7 @@ source( str_c(homedir, "pca_abo_f.R") ); # Principal Component Analysis
 
 #data
 
-if( data_site == 1 ) {
+if( data_site == 0 ) {
 
     home_site <- "https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv";
     dataowd5_site_f( date_analysis, home_site, homedir );  # data from owd site
@@ -332,7 +332,8 @@ for( ll in c(1:ndata) ) {
       print( c(ll, i) );  
   
     covid <- c();
-      aux   <- c();
+     covid_r <- c();
+        aux   <- c();
         aux2 <- c();
          vars_pca <- c();
            names_aux2 <- c();
@@ -396,9 +397,11 @@ for( ll in c(1:ndata) ) {
               names_aux2 <- rbind( names_aux2, aux[k, 4] );
               #aux2 <-  aux2_percents;  
        
-          
+          covid_r <- cbind( covid_r, as.matrix(aux[k, 8]) );
+               
           if( logdata == 1 ) {
              covid <- cbind( covid, log(as.matrix(aux[k, 8])) );
+             
           }else {
              covid <- cbind( covid, as.matrix(aux[k, 8]) );
           }   
@@ -464,7 +467,7 @@ for( ll in c(1:ndata) ) {
      covid_i[i] <- somacovid;
         
      aux3 <- cbind( aux2, t(covid) );
-       aux3_r <- cbind( aux2_r, t(covid) );
+       aux3_r <- cbind( aux2_r, t(covid_r) );
     
      aux3 <- na.omit(aux3);
        aux3_r <- na.omit(aux3_r);
@@ -480,14 +483,17 @@ for( ll in c(1:ndata) ) {
      aux2  <- aux3[, 1:(dim_aux2[2])];   #aux3 = [ Pop, ABO+, ABO-, <6VARS>, covid] 
       aux2_r <- aux3_r[, 1:(dim_aux2[2])];
  
-     covid <- aux3[, dim_aux2[2]+1];
-      #print( head(covid) )
+     covid   <- aux3[, dim_aux2[2]+1];
+     covid_r <- aux3_r[, dim_aux2[2]+1]; # original data
+      
 
      if( datascale == 0 ) {
         covid <-  as.numeric( covid ) ;
+        covid_r <-  as.numeric( covid_r ) ;
         aux2  <-  as.matrix( aux2 ) ;
      }else {
         covid   <- scale( as.numeric(covid) );
+        covid_r   <- scale( as.numeric(covid_r) );
         aux2    <- scale( as.matrix(aux2) );
         aux2_r  <- scale( as.matrix(aux2_r) ); 
      }
@@ -695,10 +701,10 @@ for( ll in c(1:ndata) ) {
       
     source( str_c(homedir, "coefficients.R") );
 
-# Pictures of log(bloodtypes) and covid    
+# Pictures of log blood types from countries and deaths (covid vector)  
     if( i == 120 ) {
         if( logdata == 1 ) {
-            source( str_c(homedir, "logbloodtypes2.R") );
+            source( str_c(homedir, "plot_bloodtypes.R") );
         }else {
         }        
     }
@@ -723,7 +729,7 @@ for( ll in c(1:ndata) ) {
         
 # Coefficientts of the  Covid-19 analysis 
         
-    source( str_c(homedir, "coeffcovid19_Log.R") );   
+    source( str_c(homedir, "coeffcovid19.R") );   
 
 # Cumulative_covid
         
@@ -755,11 +761,11 @@ for( ll in c(1:ndata) ) {
    
   print( "End loop ll" );
 
-# Daily deaths plots  - valid for N_i > 35
+# Daily deaths plots - valid for N_i > 35
   
  if( N_i > 35 ) {
    
-     source( str_c(homedir, "days_covid.R") ); 
+     source( str_c(homedir, "daily_deaths.R") ); 
    
  }
  
@@ -777,7 +783,7 @@ for( ll in c(1:ndata) ) {
 
 # Fit polinomial  correlations
    
-   source( str_c(homedir, "fittingLog2.R") );
+   source( str_c(homedir, "fitting_correlations.R") );
 
    
 print( "The program fineshed!" )

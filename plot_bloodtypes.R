@@ -165,17 +165,19 @@ par( new = TRUE );
              
 par( new = FALSE ); 
 dev.off();   
+        
+      
     
 # Plots original data ordered by deaths
 
 png( str_c( homedir, homebld, "Bldtype_OriginalData_", ll, "_", i, ".png"), width = 800, height = 800 )
     
     par( new = TRUE );   
-    crow_w2 <- order( covid );
+    crow_w2 <- order( covid_r );
     mypar( 4, 2 );
     for( jj in c(2:9) ) {
         par(mar = marg);
-        plot( exp(aux2[crow_w2, jj]), exp (covid[crow_w2] ), 
+        plot( aux2_r[crow_w2, jj], covid_r[crow_w2], 
               main = str_c(main_title[jj], "  X  ", main_title[10]), 
               xlab = main_title[jj], 
               ylab = "Deaths", 
@@ -209,8 +211,8 @@ png( str_c( homedir, homebld, "Bldtype_OrinalData_ordered_", ll, "_", i, ".png")
     
     for( jj in c(1:9) ) {
          par( mar = marg );
-         crow_w2 <- order( aux2[, jj] );
-         plot( exp(aux2[crow_w2, jj]), 
+         crow_w2 <- order( aux2_r[, jj] );
+         plot( aux2_r[crow_w2, jj], 
                main = str_c(main_title[jj], "  X  ", main_title[10]), 
                ylab = ylabels[10], 
                cex.axis = ftsize2, 
@@ -218,8 +220,8 @@ png( str_c( homedir, homebld, "Bldtype_OrinalData_ordered_", ll, "_", i, ".png")
               );
          grid( lty = 3, lwd = 1 );
     }
-         crow_w2 <- order( covid );
-         plot( exp(covid[crow_w2]), 
+         crow_w2 <- order( covid_r );
+         plot( covid_r[crow_w2], 
                main = str_c(main_title[10], "  X  ", main_title[10]), 
                ylab = ylabels[10], 
                cex.axis = ftsize2, 
