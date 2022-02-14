@@ -76,7 +76,6 @@ I=c();
  }  #end for j
 
 
-teste <- 1
-return(teste);
+return()
 } #End maxmin fuction
 

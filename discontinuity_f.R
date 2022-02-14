@@ -22,7 +22,8 @@ discontinuity_f <- function( aux2, covid, outcountry ) {
      
    }
    
-   return( aux2 ) 
+   
+return( aux2 ) 
 }
 
 

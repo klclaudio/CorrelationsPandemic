@@ -15,7 +15,7 @@
 # v0.1 refactored and new comments.
 # V0.2 next steps: PCA analyses.
 
-rm( list=ls(all=TRUE) );
+rm( list = ls(all=TRUE) );
 
 library( tidyverse );
  library( cluster );
@@ -30,76 +30,78 @@ library( zoo );
    library( corrplot );
     library( GGally );
 
+# Must config your homedir here: 
+     homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
+# homedir <- "<your homedir>";
+
+#functions
+source( str_c(homedir, "pca_abo_f.R") ); # Principal Component Analysis
+   source( str_c(homedir, "discontinuity_f.R") ); # Eliminate countries from analysis
+      source( str_c(homedir, "dataowd5_site_f.R") ); # Data from owd site
+         source( str_c(homedir, "maxmin_values_f.R") );
+    source( str_c(homedir, "correlations_f.R") );
+source( str_c(homedir, "create_dir_f.R") );
+
+
 # Defining max date of analysis
-data_site <- 1; # 0 - use previously downloaded data, 1- download from owd site
+data_site <- 0; # 0 - use previously downloaded data, 1- download from owd site
   datetemp <- Sys.Date(); # max date of the analysis;
     date_analysis <- format( datetemp, format="%d%m%Y" );
       homeresults <- str_c( "Results", date_analysis );
   
-# Must config your homedir here: 
-  homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
-# homedir <- "<your homedir>";
-
 # Result folders  
-  dir.create( str_c(homedir, "/Results", date_analysis) ); 
+create_dir_f( str_c(homedir, "/Results", date_analysis) ); 
 
 # Work and results directories
 
   homepca  <- str_c( homeresults, "/PCA/" );
-  dir.create( str_c(homedir, homepca) );
+  create_dir_f( str_c(homedir, homepca) );
   
      homedaily <- str_c( homeresults, "/Daily/" );
-     dir.create( str_c(homedir, homedaily) );  
-     
+     create_dir_f( str_c(homedir, homedaily) );
+    
         homecsv <- str_c( homeresults, "/CSV/" );
-        dir.create( str_c(homedir, homecsv) );
+        create_dir_f( str_c(homedir, homecsv) );
         
            homefit <- str_c( homeresults, "/Fitting/" );
-           dir.create( str_c(homedir, homefit) );
+           create_dir_f( str_c(homedir, homefit) );
            
               homeCounEvol <- str_c( homeresults, "/CountriesEvolutions/" );
-              dir.create( str_c(homedir, homeCounEvol) ); 
+              create_dir_f( str_c(homedir, homeCounEvol) ); 
               
                  homebld <- str_c( homeresults, "/BloodTypes/" );
-                 dir.create( str_c(homedir, homebld) );
+                 create_dir_f( str_c(homedir, homebld) );
                  
                     homemov <- str_c( homeresults, "/Movies/" );
-                    dir.create( str_c(homedir, homemov) );
+                    create_dir_f( str_c(homedir, homemov) );
                  
                   homecum <- str_c( homeresults, "/Cumulative/" );
-                 dir.create( str_c(homedir, homecum) );
+                  create_dir_f( str_c(homedir, homecum) );
                   
               homenorm <- str_c( homeresults, "/Normality/" );
-              dir.create( str_c(homedir, homenorm) );
+              create_dir_f( str_c(homedir, homenorm) );
               
            homehist <- str_c( homeresults, "/Histograms/" );
-           dir.create( str_c(homedir, homehist) );
+           create_dir_f( str_c(homedir, homehist) );
            
         homecorr <- str_c( homeresults, "/Correlations/" );
-        dir.create( str_c(homedir, homecorr) );
+        create_dir_f( str_c(homedir, homecorr) );
         
      homepval <- str_c( homeresults, "/Pvalues/" );
-     dir.create( str_c(homedir, homepval) );  
+     create_dir_f( str_c(homedir, homepval) );  
      
   homecoeff <- str_c( homeresults, "/Coefficients/" );
-  dir.create( str_c(homedir, homecoeff) );
+  create_dir_f( str_c(homedir, homecoeff) );
   
 homedata <- "files_aux/";
 
 getOption( "warn" );
 options( warn = -1 )
 
-#functions
-
-source( str_c(homedir, "pca_abo_f.R") ); # Principal Component Analysis
-   source( str_c(homedir, "discontinuity_f.R") ); # Eliminate countries from analysis
-      source( str_c(homedir, "dataowd5_site_f.R") ); # Data from owd site
-         source( str_c(homedir, "maxmin_values_f.R") );
-            source( str_c(homedir, "correlations_f.R") );
 
 #data
 
-if( data_site == 0 ) {
+if( data_site == 1 ) {
 
     home_site <- "https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv";
     dataowd5_site_f( date_analysis, home_site, homedir );  # data from owd site
@@ -786,6 +788,6 @@ for( ll in c(1:ndata) ) {
    source( str_c(homedir, "fitting_correlations.R") );
 
    
-print( "The program fineshed!" )
+print( "The program finished!" )
 #*----------------------------------------------------------------------------*#   
 

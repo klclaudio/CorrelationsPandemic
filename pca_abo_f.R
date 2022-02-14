@@ -105,6 +105,6 @@ eig.val <- get_eigenvalue(res.pca)
 #             palette = "jco", repel = TRUE)         
 #
     
-grph=1
-return(grph)    
+
+return()    
 } #End function pca_analysis

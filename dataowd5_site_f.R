@@ -71,7 +71,6 @@ write.csv( dataowd5, str_c(homedir, "dataowd5_", date_analysis, ".csv"), row.nam
    dataowd5 <- dataowd5[ order( dataowd5$DaysSince5 ), ];
       write.csv( dataowd5, str_c(homedir, "dataowd5_", date_analysis, "_order.csv"), row.names = TRUE );
 
-teste <- 1
-return(teste)  
 
+return()  
 } # End dataowd5_site_f
