@@ -3,7 +3,7 @@ Correlations in pandemic world are calculated between Covid-19 deaths and ABO gr
 
 The code was implemented in R and the main  file is TemporalAnalysis.R.
 
-The results are saved in the directory: Results(date of analysis)/ .  
+The results are saved in the directory: Results<date of analysis>/ .  
 
 Since version v0.0 has automatic data file downloaded from  Our World in Data: https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv .
 
