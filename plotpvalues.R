@@ -99,17 +99,17 @@ png( str_c( homedir, homepval, "PvaluesCovidABO", type_stat, ll, "_", i, ".png")
    
    par( new = TRUE );
    plot( xp, correlacoest[, 7], ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-         ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[1], type = "l", lty = 1, pch = 0 );#A-
+         ylim = c(0, 1),  col = color_l[1], type = "l", lty = 1, pch = 0 );#A-
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
   
    par( new = TRUE );
    plot( xp, correlacoest[, 8], ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-         ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[3], type = "l", lty = 3, pch = 5 );#B-
+         ylim = c(0, 1),  col = color_l[3], type = "l", lty = 3, pch = 5 );#B-
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
   
    par( new = TRUE );
    plot( xp, correlacoest[, 9], ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-         ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[4], type = "l", lty = 6, pch = 4 );#AB-
+         ylim = c(0, 1),  col = color_l[4], type = "l", lty = 6, pch = 4 );#AB-
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
      
 
@@ -132,17 +132,17 @@ png( str_c( homedir, homepval, "PvaluesCovidABO", type_stat, ll, "_", i, ".png")
    par( new = TRUE );
 
  plot( xp, correlacoest_A, ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-       ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[1], type = "l", lty = 1, pch = "+" );
+       ylim = c(0, 1),  col = color_l[1], type = "l", lty = 1, pch = "+" );
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
    par( new = TRUE );
 
  plot( xp, correlacoest_B, ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-       ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[3], type = "l", lty = 3, pch = "-" );
+       ylim = c(0, 1),  col = color_l[3], type = "l", lty = 3, pch = "-" );
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
    par( new = TRUE );
 
  plot( xp, correlacoest_AB, ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-       ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[4], type = "l", lty = 6, pch = "*" );
+       ylim = c(0, 1),  col = color_l[4], type = "l", lty = 6, pch = "*" );
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
 
  plot( xp, correlacoest_rhp,  main = "Rhesus (Rh) System (d)", ylab = "Pvalues", xlab = "Days since five deaths (x 10²)", 
@@ -170,7 +170,7 @@ png( str_c( homedir, homepval, "PvaluesCovidABO", type_stat, ll, "_", i, ".png")
     
   par( new = TRUE );
   plot( xp, correlacoest_rhn, ylab = "", xlab = "", cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, 
-       ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l2[2], type = "l", lty = 2, pch = "o" );
+       ylim = c(0, 1),  col = color_l2[2], type = "l", lty = 2, pch = "o" );
     abline( h = 0.05, col = "grey", lty = 2, lwd = 2 );
 
 par( new = FALSE );

@@ -23,7 +23,24 @@ maxresiduals_lin <- c();
     stats_residualslin <- c();
       stderrorslin  <- c();
 
-ylimitec = c(0, 10);
+# axis limits
+if (tdpm == 0 ){
+  
+  ylimitea = c(0,1);
+  ylimitec = c(0, 10);
+  
+}else{
+  
+  if (ll == 4) { 
+    ylimitea = c(0,0.7);
+  }else{
+    ylimitea = c(0,0.1)
+  }
+  
+  ylimitec = c(-4, 8);
+  
+  
+}
   xlimitec = c(0,N_i)/100;
 
 png( str_c( homedir,homecoeff,"CoeffCovid19_Log_Angular",ll,".png"), width = 500, height = 500 )
@@ -34,7 +51,7 @@ par( new = TRUE );
     plot( coeff_ll[,1]/100, coeff_ll[,2], 
           main = str_c( "Temporal Characterization of the COVID-19 (",ll,")" ), 
           xlim = xlimitec,
-          ylim = c(0,1),
+          ylim = ylimitea,
           xlab = "Days since five deaths (x 10²)", 
           ylab = "Angular Coefficients",
           cex.main = ftsize, 
@@ -52,7 +69,7 @@ par( new = TRUE );
                 ylab="", 
                 xlab="", 
                 xlim = xlimitec, 
-                ylim = c(0,1), 
+                ylim = ylimitea, 
                 cex.main = ftsize, 
                 cex.lab = ftsizelb, 
                 cex.axis = ftsizeax, 

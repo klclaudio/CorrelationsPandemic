@@ -54,11 +54,12 @@ mypar(2,2);
 par(mar = c(4, 4, 4, 4));
 for (iiii in c(1:4)){
 
-  if (iiii != 4) {
-     ylimite = c(-0.1,1)
-  } else{
-    ylimite = c(-1,1)
-  }
+  # if (iiii != 4) {
+  #    ylimit = c(-0.1,1)
+  # } else{
+  #   ylimit = c(-1,1)
+  # }
+  ylimit = limit_f(tdpm,iiii);
 
     if(iiii==1){correlacoes <- correlacoes1
       }else if(iiii==2){correlacoes <- correlacoes2
@@ -68,18 +69,18 @@ for (iiii in c(1:4)){
 
 
    plot( xx,correlacoes[1:N_i,2], main=str_c("Population Analysis - ",iiii), ylab="Correlations", xlab="Days since five deaths (x 10²)",
-         xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, cex=0.7, lwd=0.5, lty=1) #Population
+         xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, cex=0.7, lwd=0.5, lty=1) #Population
    grid(lty=3, lwd=1)
     
   par(new=TRUE)
    plot( xx,correlacoes[1:N_i,2], main="", ylab="", xlab="",
-          xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, cex=0.7, lwd=0.5, lty=1) #Population
+          xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, cex=0.7, lwd=0.5, lty=1) #Population
          
       model <- lm(correlacoes[1:nx,2]~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10)+ I(x^11) );
       predicted.intervals <- predict( model,data.frame(x=q),interval='confidence', level=0.95 );
       par( new = TRUE);
       plot( q,predicted.intervals[,1],ylab="", xlab="",
-             xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[1], type = "l", lty=1, lwd=2 ); 
+             xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[1], type = "l", lty=1, lwd=2 ); 
       maxresidualspop <- rbind( maxresidualspop, max(model[["residuals"]]));
       
       residuospop<-model[[ "residuals" ]];
@@ -115,11 +116,14 @@ color_l = c("red","blue","black","cyan2");
 
 for (iiii in c(1:4)){
 
-if (iiii != 4) {
-    ylimite = c(-0.1,1)
-} else{
-    ylimite = c(-1,1)
-}
+
+  ylimit = limit_f(tdpm,iiii);
+
+# if (iiii != 4) {
+#     ylimit = c(-0.1,1)
+# } else{
+#     ylimit = c(-1,1)
+# }
 
     if(iiii==1){correlacoes <- correlacoes1
       }else if(iiii==2){correlacoes <- correlacoes2
@@ -132,7 +136,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
  mypar(2,2); par(new = FALSE);
  par(mar = c(4, 4, 4, 4))
  plot(xx,correlacoes[1:N_i,4], main="ABO System and Rh+ (a)", ylab="Correlations", xlab="Days since five deaths (x 10²)",
-     ylim = ylimite, xlim = xlimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, type = "l",  cex=0.01, lwd=0.5, lty=2); #O+
+     ylim = ylimit, xlim = xlimite, cex.main = ftsize , cex.lab = ftsizelb, cex.axis = ftsizeax, pch=1, type = "l",  cex=0.01, lwd=0.5, lty=2); #O+
      if (iiii != 4){
       legend("topleft",legend=c("A +","O +","B +","AB +"), col = color_l, bty="n", lwd=2, lty=c(1,2,3,6),cex=1.0);
    }else{
@@ -145,7 +149,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       predicted.intervals <- predict( model,data.frame(x=q),interval='confidence', level=0.95 );
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",ylim = ylimite, xlim = xlimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax,  type = "l", col = color_l[2], lty=2, lwd=1.5 );
+      plot( q,predicted.intervals[,1], ylab="", xlab="",ylim = ylimit, xlim = xlimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax,  type = "l", col = color_l[2], lty=2, lwd=1.5 );
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -160,7 +164,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       
    
    par(new = TRUE)
-   plot(xx,correlacoes[1:N_i,6], ylab="", xlab="", xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb,
+   plot(xx,correlacoes[1:N_i,6], ylab="", xlab="", xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb,
         cex.axis= ftsizeax, type="l", pch=1, cex=0.7, lwd=0.5,lty=1); #A+
    grid(lty=3, lwd=1)
    #fitting
@@ -168,7 +172,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[1],lty=1,lwd=1.5)
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[1],lty=1,lwd=1.5)
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -182,13 +186,13 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       coefi <-  rbind( coefi, c(model[["coefficients"]], ResidualStandardError, CoeficienteDeterminacao) );
   
    par(new = TRUE)
-   plot(xx,correlacoes[1:N_i,8], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3);  #B+
+   plot(xx,correlacoes[1:N_i,8], ylab="", xlab="", xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3);  #B+
    #fitting
       model <- lm(correlacoes[1:nx,8] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[3],lty=3,lwd=1.5)
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[3],lty=3,lwd=1.5)
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -202,13 +206,13 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       coefi <-  rbind( coefi, c(model[["coefficients"]], ResidualStandardError, CoeficienteDeterminacao) );
    
    par(new = TRUE)
-   plot(xx,correlacoes[1:N_i,10], ylab="", xlab="", xlim = xlimite, ylim = ylimite, cex.main = ftsize, cex.axis= ftsizeax,  pch=1, type="l",  cex=0.01, lwd=0.5, lty=6);  #AB+
+   plot(xx,correlacoes[1:N_i,10], ylab="", xlab="", xlim = xlimite, ylim = ylimit, cex.main = ftsize, cex.axis= ftsizeax,  pch=1, type="l",  cex=0.01, lwd=0.5, lty=6);  #AB+
       #fitting
       model <- lm(correlacoes[1:nx,10] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[4], lty=6, lwd=1.5)
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[4], lty=6, lwd=1.5)
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -226,7 +230,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
   
   
  plot(xx,correlacoes[1:N_i,12], main="ABO System and Rh- (b)", ylab="Correlations", xlab="Days since five deaths (x 10²)",
-     xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab = ftsizelb,  cex.axis = ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=2) #O-
+     xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab = ftsizelb,  cex.axis = ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=2) #O-
   
    
    if (iiii != 4){
@@ -239,7 +243,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[2], lty=2, lwd=1.5)
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[2], lty=2, lwd=1.5)
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -255,12 +259,12 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
    
    
    par(new = TRUE)
-   plot(xx,correlacoes[1:N_i,14], ylab="", xlab="",xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=1); #A-
+   plot(xx,correlacoes[1:N_i,14], ylab="", xlab="",xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=1); #A-
       model <- lm(correlacoes[1:nx,14] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[1], lty=1, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[1], lty=1, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -274,12 +278,12 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       coefi <-  rbind( coefi, c(model[["coefficients"]], ResidualStandardError, CoeficienteDeterminacao) );
       
    par(new = TRUE)
-   plot(xx,correlacoes[1:N_i,16], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3); #B-
+   plot(xx,correlacoes[1:N_i,16], ylab="", xlab="", xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3); #B-
       model <- lm(correlacoes[1:nx,16] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[3], lty=3, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[3], lty=3, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -293,12 +297,12 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       coefi <-  rbind( coefi, c(model[["coefficients"]], ResidualStandardError, CoeficienteDeterminacao) );
       
    par(new = TRUE)
-   plot(xx,correlacoes[1:N_i,18], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6); #AB-
+   plot(xx,correlacoes[1:N_i,18], ylab="", xlab="", xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6); #AB-
       model <- lm(correlacoes[1:nx,18] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[4], lty=6, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[4], lty=6, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -313,7 +317,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
     
   par(new = FALSE)
  plot(xx,correlacoes[1:N_i,20],  main="ABO System (c)", ylab="Correlations",xlab="Days since five deaths (x 10²)",
-     xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=2)
+     xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=2)
      
 
     if (iiii != 4){
@@ -326,7 +330,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[2], lty=2, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[2], lty=2, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -344,14 +348,14 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
   
    par(new = TRUE)
 
-   plot(xx,correlacoes[1:N_i,22], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=1);
+   plot(xx,correlacoes[1:N_i,22], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=1);
   
        
       model <- lm(correlacoes[1:nx,22] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[1], lty=1, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[1], lty=1, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -366,13 +370,13 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
        par(new = TRUE)
 
 #if (iiii != 4) 
-   plot(xx,correlacoes[1:N_i,24], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3);
+   plot(xx,correlacoes[1:N_i,24], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=3);
      
       model <- lm(correlacoes[1:nx,24] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[3], lty=3, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[3], lty=3, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -386,13 +390,13 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
       coefi <-  rbind( coefi, c(model[["coefficients"]], ResidualStandardError, CoeficienteDeterminacao) );
    par(new = TRUE)
 
-   plot(xx,correlacoes[1:N_i,26], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6);
+   plot(xx,correlacoes[1:N_i,26], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.5, lty=6);
       
       model <- lm(correlacoes[1:nx,26] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[4], lty=4, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col = color_l[4], lty=4, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -407,13 +411,13 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
  par(new = FALSE)
  
  plot(xx,correlacoes[1:N_i,28],  main="Rhesus(Rh) System (d)", ylab="Correlations", xlab="Days since five deaths (x 10²)",
-      xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.4, lty=2);
+      xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.4, lty=2);
     
       model <- lm(correlacoes[1:nx,28] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
       predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.95)
 #      coefi <- rbind( coefi, model[["coefficients"]] );;
       par(new = TRUE)
-      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimite, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col='brown', lty=1, lwd=1.5);
+      plot( q,predicted.intervals[,1], ylab="", xlab="",xlim = xlimite, ylim = ylimit, cex.main = ftsize , cex.lab= ftsizelb, cex.axis= ftsizeax, type = "l", col='brown', lty=1, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));
@@ -434,7 +438,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
    grid(lty=3, lwd=1);
   
    par(new = TRUE);
-   plot(xx,correlacoes[1:N_i,30], ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.4, lty=2);
+   plot(xx,correlacoes[1:N_i,30], ylab="", xlab="", xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, pch=1, type="l",  cex=0.01, lwd=0.4, lty=2);
     
     model <- lm(correlacoes[1:nx,30] ~ x + I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6) + I(x^7) + I(x^8) + I(x^9) + I(x^10) + I(x^11) );
     #model <- lm(correlacoes[1:nx,30] ~ poly(q,11) );
@@ -442,7 +446,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit",iiii,"_",nx,"_",px_wd_
 #      coefi <- rbind( coefi, model[["coefficients"]] );
       par(new = TRUE);
       par(new = TRUE)
-      plot( q,predicted.intervals[,1],ylab="", xlab="", xlim = xlimite, ylim = ylimite,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, type = "l",col='green4', lty=2, lwd=1.5);
+      plot( q,predicted.intervals[,1],ylab="", xlab="", xlim = xlimite, ylim = ylimit,   cex.main = ftsize , cex.lab= ftsizelb,  cex.axis= ftsizeax, type = "l",col='green4', lty=2, lwd=1.5);
       residuos<-model[[ "residuals" ]];
       media<-sum(abs(residuos))/nx;   
       desvio<-sd(abs(residuos));

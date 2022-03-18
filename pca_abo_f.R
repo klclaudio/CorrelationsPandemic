@@ -1,5 +1,5 @@
 #
-# Pca analysis 
+# PCA analysis 
 #
 
 pca_analysis <- function( data_c_frame, i, ll, dirout ) {
@@ -37,7 +37,7 @@ pca_analysis <- function( data_c_frame, i, ll, dirout ) {
   print(res.pca)
 
 # Visualization and Interpretation from: library("factoextra")
-eig.val <- get_eigenvalue(res.pca)
+  eig.val <- get_eigenvalue(res.pca)
 
 
 # An alternative method to determine the number of principal components is to look at a Screen Plot
