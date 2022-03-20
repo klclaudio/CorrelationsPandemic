@@ -2,9 +2,9 @@
 # Simulating options 
 #
 
-data_site <- 1 # 0 - use previously downloaded data, 1- download from owd site
+data_site <- 0 # 0 - use previously downloaded data, 1- download from owd site
 
-  tdpm <- 1; # 0 - cumulative deaths,  1- total deaths per million
+  tdpm <- 0; # 0 - cumulative deaths,  1- total deaths per million
 
     logdata <- 1; # Data: 0- without log  transformation,  1- data with log transformation
   
