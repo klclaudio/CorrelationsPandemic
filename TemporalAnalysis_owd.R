@@ -14,7 +14,7 @@
 # v0.0 base code 
 # v0.1 refactored and new comments.
 # v0.2 add total deaths per million, options file for simulations and refactorings.
-# V0.3 next steps: PCA analyses. 
+# V0.3 next steps: PCA analysis. 
 #
 
 rm( list = ls(all=TRUE) );
@@ -32,20 +32,25 @@ library( zoo );
         library( corrplot );
 library( GGally );
 
-# Must config your homedir here: homedir <- "<your homedir>";
-homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
 
+# Must config your homedir: homedir <- "<your homedir>";
+
+  homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
+
+  
 # functions
 source( str_c(homedir, "pca_abo_f.R") ); # Principal Component Analysis
    source( str_c(homedir, "discontinuity_f.R") ); # Eliminate countries from analysis
          source( str_c(homedir, "dataowd5_site_f.R") ); # Data from owd site
              source( str_c(homedir, "maxmin_values_f.R") );
-         source( str_c(homedir, "correlations_f.R") );
-    source( str_c(homedir, "create_dir_f.R") );
-source( str_c(homedir, "limit_f.R") );
+             source( str_c(homedir, "correlations_f.R") );
+         source( str_c(homedir, "create_dir_f.R") );
+    source( str_c(homedir, "limit_f.R") );
+source( str_c(homedir, "define_position_f.R") ); #Define legend positions
+  
 
 # options for simulations
-source( str_c(homedir, "conf_options.R") );
+source( str_c(homedir, "conf-options.R") );
 
 
 # Defining max date of analysis
@@ -57,12 +62,12 @@ source( str_c(homedir, "conf_options.R") );
 # tdpm: 0 - cumulative deaths,  1- total deaths per million
 if (tdpm == 0) {
   
-    homeresults <- str_c( "Results_adac", date_analysis );
+    homeresults <- str_c( "Results-cumulative-", date_analysis,"/" );
     create_dir_f( str_c(homedir, homeresults) ); 
  
 }else {  
     # tdpm == 1
-    homeresults <- str_c( "Results_tdpm", date_analysis );
+    homeresults <- str_c( "Results-permillion-", date_analysis,"/" );
     create_dir_f( str_c(homedir, homeresults) ); 
     
  }
@@ -70,22 +75,22 @@ if (tdpm == 0) {
      
 # Create result subdirectories
      
- source( str_c(homedir,"homedirectories.R") );
+ source( str_c(homedir,"home-directories.R") );
 
      
 # Obtaining data
 if( data_site == 1 ) {
   
   home_site <- "https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv";
-  dataowd5_site_f( date_analysis, home_site, homedir );  # data from owd site
+  dataowd5_site_f( date_analysis, home_site, homedir, homedata );  # data from owd site
   
 }  
 
 # Data sorted by countries
-dataowd5 <- read.csv( str_c(homedir, "dataowd5_", date_analysis, ".csv") );
+dataowd5 <- read.csv( str_c(homedir, homedata, "dataowd5-", date_analysis, ".csv") );
 
 # Data sorted by numbers days since 5th death.
-dataowd5_days <- read.csv( str_c(homedir, "dataowd5_", date_analysis, "_order.csv") );
+dataowd5_days <- read.csv( str_c(homedir, homedata, "dataowd5-", date_analysis, "-order.csv") );
 
 # Many countries are excluded from the analysis when use pca
 # cols: 45-populations, 44-stringency_index, 46-populations_density, 46-cardiovasc_death_rate, 
@@ -131,7 +136,7 @@ for( ll in c(1:ndata) ) {
 	  data_c_percents <- c();
 	  
 	  # Data and out files
-	  source( str_c(homedir, "data_inout.R") );   
+	  source( str_c(homedir, "data-inout.R") );   
 	  
 	  colnames( data_c_percents)  <- c("X", "Pop", "O+", "A+", "B+", "AB+", "O-", 
 														 "A-", "B-", "AB-", "Covid");
@@ -680,7 +685,7 @@ for( ll in c(1:ndata) ) {
 			  
 				  if( ll == 1 | ll == 3 | ll == 4) {
 				  
-					  source( str_c(homedir, "aux4pca.R") );
+					  source( str_c(homedir, "aux4-pca.R") );
 					  
 				  }
 			  
@@ -693,7 +698,7 @@ for( ll in c(1:ndata) ) {
 			
 				  if( logdata == 1 ) {
 				  
-						source( str_c(homedir, "plot_bloodtypes.R") );
+						source( str_c(homedir, "plot-bloodtypes.R") );
 						
 				  }        
 			
@@ -701,15 +706,15 @@ for( ll in c(1:ndata) ) {
 			
 			# Pictures of the pandemic evolution used to make video   
 			
-			source( str_c(homedir, "movie_covid.R") );  
+			source( str_c(homedir, "movie-covid.R") );  
 			
 			# Normality test for each i day
 			
-			source( str_c(homedir, "histograms_tests.R") );            
+			source( str_c(homedir, "histograms-tests.R") );            
 			
 			# Evolutions of covid ordered for each day.
 			
-			source( str_c(homedir, "covid_evolution.R") );   
+			source( str_c(homedir, "covid-evolution.R") );   
 			
 			
 		} # End loop i for N_i days since 5a death.
@@ -719,28 +724,28 @@ for( ll in c(1:ndata) ) {
 	  
 	  # Coefficientts of the  Covid-19 analysis 
 	  
-	  source( str_c(homedir, "coeffcovid19.R") );   
+	  source( str_c(homedir, "coeff-covid19.R") );   
 	  
 	  # Cumulative_covid
 	  
-	  source( str_c(homedir, "plotcumulativecovid.R") );
+	  source( str_c(homedir, "plot-cumulative-covid.R") );
 	  
 	  # Saving correlations files
 	  
 	  print("Gravando arquivos");
-	  source( str_c(homedir, "correlation_outputs.R") );
+	  source( str_c(homedir, "correlation-outputs.R") );
 	  
 	  # Data Normality
 	  
-	  source( str_c(homedir, "evolution_normality.R") );
+	  source( str_c(homedir, "evolution-normality.R") );
 	  
 	  # Temporal Correlations Plots 
 	  
-	  source( str_c(homedir, "plotcorrelations.R") ); 
+	  source( str_c(homedir, "plot-correlations.R") ); 
 	  
 	  # P_values plots 
 	  
-	  source( str_c(homedir, "plotpvalues.R") );  
+	  source( str_c(homedir, "plot-pvalues.R") );  
 	  
 	  # Daily deaths matrix
 	  
@@ -755,13 +760,13 @@ print( "End loop ll" );
 
 if( N_i > 35 ) {
   
-	  source( str_c(homedir, "daily_deaths.R") ); 
+	  source( str_c(homedir, "daily-deaths.R") ); 
   
 }
 
 # Normality plots 
 
-#   source( str_c(homedir, homenorm, "evolution_normality_all.R" ) );
+#   source( str_c(homedir, homenorm, "evolution-normality.R" ) );
 
 # Max and min values of correlations 
 
@@ -769,11 +774,11 @@ maxmin_values_f( homedir, homecsv, N_i, nx, vfilesout );
 
 # Comparative graphics of pvalues and correlations 
 
-source( str_c(homedir, "pvalues_dif.R") ); 
+source( str_c(homedir, "pvalues-dif.R") ); 
 
 # Fit polinomial  correlations
 
-source( str_c(homedir, "fitting_correlations.R") );
+source( str_c(homedir, "fitting-correlations.R") );
 
 
 print( "The program finished!" )

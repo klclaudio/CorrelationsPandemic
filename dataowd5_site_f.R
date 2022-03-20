@@ -2,7 +2,7 @@
 # Date file with data since 5 deaths
 #
 
-dataowd5_site_f <- function (date_analysis, home_site, homedir) {
+dataowd5_site_f <- function (date_analysis, home_site, homedir, homedata) {
 # Create dataowd5_DATE from owid-covid-data, organize  total_deaths and eliminate data with less 4 deaths
 # 
 # 1 - owid-covid-data_ ordered by total_deaths 
@@ -14,8 +14,8 @@ dataowd5_site_f <- function (date_analysis, home_site, homedir) {
 library( "curl" ) 
 
 auxdata <- c();
-  curl_download( home_site, str_c(homedir, 'owid-covid-data', date_analysis, '.csv') );
-     auxdata <- read.csv( str_c(homedir, 'owid-covid-data', date_analysis, '.csv') );
+  curl_download( home_site, str_c(homedir, homedata, 'owid-covid-data', date_analysis, '.csv') );
+     auxdata <- read.csv( str_c(homedir, homedata, 'owid-covid-data', date_analysis, '.csv') );
 
 
 dimauxdata <- dim(auxdata);
@@ -67,9 +67,9 @@ while( i <= N ) {
 }
 
 
-write.csv( dataowd5, str_c(homedir, "dataowd5_", date_analysis, ".csv"), row.names = TRUE );
+write.csv( dataowd5, str_c(homedir, homedata, "dataowd5-", date_analysis, ".csv"), row.names = TRUE );
    dataowd5 <- dataowd5[ order( dataowd5$DaysSince5 ), ];
-      write.csv( dataowd5, str_c(homedir, "dataowd5_", date_analysis, "_order.csv"), row.names = TRUE );
+      write.csv( dataowd5, str_c(homedir, homedata, "dataowd5-", date_analysis, "-order.csv"), row.names = TRUE );
 
 
 return()  

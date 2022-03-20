@@ -6,7 +6,7 @@ limit_f <- function (tdpm,ll) {
 
   if (tdpm == 0) {
     if( ll !=  4 ) {
-      ylimit <- c(-0.2, 1);
+      ylimit <- c(0, 1);
     } else{
       ylimit <- c(-1, 1);
     }
