@@ -35,7 +35,7 @@ library( GGally );
 
 # Must config your homedir: homedir <- "<your homedir>";
 
-  homedir <- "/home/klclaudio/Documents/CovidCorrelations/";
+  homedir <- "/home/klclaudio/Documents/GIT/CovidCorrelations/";
 
   
 # functions
@@ -730,9 +730,9 @@ for( ll in c(1:ndata) ) {
 	  
 	  source( str_c(homedir, "plot-cumulative-covid.R") );
 	  
-	  # Saving correlations files
+	  # Saving correlation files
 	  
-	  print("Gravando arquivos");
+	  print("Saving Files");
 	  source( str_c(homedir, "correlation-outputs.R") );
 	  
 	  # Data Normality
