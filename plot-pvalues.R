@@ -196,5 +196,5 @@ png( str_c( homedir, homepval, "PvaluesCovidABO", type_stat, l_count, "_", i_day
    abline( h = 0.05, col = "grey", lty = 2, lwd = 2 )
 
 par(new = FALSE)
-dev.off() #fecha saída de arquivo
+dev.off() 
 #End plotpvalues
