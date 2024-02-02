@@ -2,7 +2,7 @@ Results*/
 Data*/
 *.png
 *.zip
-.Rproj*
+.Rproj.*
 CovidCorrelations.code-workspace
 TemporalAnalysis_owd_dt*
 TemporalAnalysis_owd_t*
