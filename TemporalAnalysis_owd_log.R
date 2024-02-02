@@ -1,5 +1,5 @@
 #
-# This is the general version, the preliminary results were presented in:
+# This is the a log version refactored, the preliminary results were presented in:
 #
 # Claudio, Kleucio; Viviani Thomazini Luis Fernando;
 # Silva-Santos, Carlos Henrique; Sasaki, Eduardo Noboru;
@@ -18,9 +18,8 @@
 #        log option only,
 #        col names id instead col number id and
 #        refactorings.
-
+#
 rm(list = ls(all = TRUE))
-
 # Libraries in use
 packages_list <- c( "tidyverse",
                     "cluster",
@@ -44,7 +43,7 @@ source( str_c(homedir, "maxmin_values_f.R") )
 source( str_c(homedir, "correlations_f.R") )
 source( str_c(homedir, "create_dir_f.R") )
 source( str_c(homedir, "limit_f.R") )
-source( str_c(homedir, "define_position_f.R") ) #rever nome
+source( str_c(homedir, "define_position_f.R") )
 source( str_c(homedir, "obtain_data_f.R") )
 
 source( str_c(homedir, "conf-options.R") )
@@ -70,7 +69,7 @@ obtain_data_f(owid_file, data_site, date_analysis, homedir, homedata)
 #dataowd5_days <- read.csv( str_c(homedir, homedata, "dataowd5-", date_analysis, "-order.csv") )
 print("   Read files - Ok")
 
-# Many countries are excluded from the analysis when use pca
+# Many countries are excluded from the analysis when use PCA
 # cols: 45-populations, 44-stringency_index, 46-populations_density, 46-cardiovasc_death_rate,
 #       47-diabetes_prevalence, 51-hospital_beds_per_thousand, 52-life_expectancy,
 #       53-human_development_index
@@ -109,18 +108,16 @@ if(logdata == 0) {
 source( str_c(homedir,"file-names-io.R") )
 
 for( l_count in c(1:ndata) ) {
-
-
    # Data and out files
    data_c_percents <- c()
    source( str_c(homedir, "data-inout.R") )
 
    colnames( data_c_percents)  <- c( "X",
-                                     "Pop",
-                                     "O + ",
-                                     "A + ",
-                                     "B + ",
-                                     "AB + ",
+                                     "Pop.",
+                                     "O+",
+                                     "A+",
+                                     "B+",
+                                     "AB+",
                                      "O-",
                                      "A-",
                                      "B-",
@@ -223,7 +220,7 @@ for( l_count in c(1:ndata) ) {
    covid            <- c()
    cumulative_covid <- c()
 
-   correlacoes     <- c();  correlacoest     <- c();  correlacoest_CI     <- c()
+   correlacoes         <- c();  correlacoest         <- c();  correlacoest_CI        <- c()
    correlacoes_abo_rh  <- c();  correlacoest_abo_rh  <- c();  correlacoest_CI_abo_rh <- c()
 
    p_values_histogram   <- c()
@@ -270,12 +267,6 @@ for( l_count in c(1:ndata) ) {
                }
             }
             if( aux[k, "location"] == namesdatac[m] && is.na( aux[k, "total_deaths"] ) == FALSE ) {
-               # if( is.na(aux[k, "total_deaths"]) == FALSE) { # all countries
-               # aux2[j, ] <- datac[l, ]
-               # using population from rhresus site
-               # aux2 <- rbind( aux2, data_c[m, 1:9] )
-
-               #----------------------------------------------------------------------------------------
                # Using data poopulation from owid
                aux2 <- rbind( aux2, c( as.numeric(aux[k, "population"]),
                               as.numeric(data_c_percents[m, 2:9]) * as.numeric(aux[k, "population"]) ))
@@ -285,8 +276,7 @@ for( l_count in c(1:ndata) ) {
                #               c( as.numeric(data_c_percents[m, 1]),
                #                 as.numeric(data_c_percents[m, 2:9]) * as.numeric(data_c_percents[m, 1]) ))
 
-               # ---------------------------- P C A ------------------------------
-               #
+               #  P C A
                varnames <-  c( "population",
                                "population_density",
                                "median_age",
@@ -305,11 +295,7 @@ for( l_count in c(1:ndata) ) {
                names_aux2 <- rbind( names_aux2, aux[k, "location"] )
                covid_r    <- cbind( covid_r, as.matrix(aux[k, "total_deaths"]) )
 
-               if( logdata == 1 ) { #1
-                  covid <- cbind( covid, log(as.matrix(aux[k, "total_deaths"])) )
-               }else {
-                   covid <- cbind( covid, as.matrix(aux[k, "total_deaths"]) )
-               }
+               covid <- cbind( covid, log(as.matrix(aux[k, "total_deaths"])) )
 
                # using rate per milion the data normality vanish
                if (tdpm == 1) {
@@ -336,13 +322,11 @@ for( l_count in c(1:ndata) ) {
 
          # Exclude countries from data
          if(outcountry != "") {
-
             if(i_days >= 120) {
                dimaux2_antes  <- dim(aux2)
                print( "Excluding countries" )
                aux2           <- discontinuity( aux2, covid, outcountry )
                dimaux2_depois <- dim(aux2)
-
                if( dimaux2_antes[2] != dimaux2_depois[2] ) {
                   dimaux2 <- dim(aux2)
                   covid   <- aux2[, dimaux2[2]]
@@ -352,15 +336,15 @@ for( l_count in c(1:ndata) ) {
             }
          }# End if outcountry
 
-         aux2_r <- aux2
-         if( logdata == 1 ) { #2
-            aux2 <- log(aux2)
-         }
+         aux2_r <- aux2  # Dados sem transformação logaritimicas
+
+         aux2 <- log(aux2)
+
 
          covid_i[i_days] <- somacovid
 
-         aux3      <- cbind( aux2, t(covid) )
-         aux3_r    <- cbind( aux2_r, t(covid_r) )
+         aux3      <- cbind( aux2, t(covid) )     # log data
+         aux3_r    <- cbind( aux2_r, t(covid_r) ) # original data
          aux3      <- na.omit(aux3)
          aux3_r    <- na.omit(aux3_r)
 
@@ -368,123 +352,81 @@ for( l_count in c(1:ndata) ) {
          aux3_r    <- aux3_r[!is.infinite( rowSums(aux3_r) ), ]
 
          dim_aux2  <- dim(aux2)
-         aux2      <- aux3[, 1:(dim_aux2[2])]
+         aux2      <- aux3[, 1:(dim_aux2[2])]   # aux3 <- [ Pop, ABO + , ABO-, <6VARS>, covid]
          aux2_r    <- aux3_r[, 1:(dim_aux2[2])]
 
-         covid     <- aux3[, dim_aux2[2] + 1]
+         covid     <- aux3[, dim_aux2[2] + 1]   # log data
          covid_r   <- aux3_r[, dim_aux2[2] + 1] # original data
 
-         if( datascale == 0 ) {
-            covid   <-  as.numeric(covid)
-            covid_r <-  as.numeric(covid_r)
-            aux2    <-  as.matrix(aux2)
-         }else {
-            covid   <- scale( as.numeric(covid) )
-            covid_r <- scale( as.numeric(covid_r) )
-            aux2    <- scale( as.matrix(aux2) )
-            aux2_r  <- scale( as.matrix(aux2_r) )
-         }
+         covid   <-  as.numeric(covid)
+         covid_r <-  as.numeric(covid_r)
+         aux2    <-  as.matrix(aux2)
 
-         aux_covid <- c()
-         crow_c    <- order(covid)
-         aux_covid <- covid
-
+         crow_c              <- order(covid)
          covid               <- covid[crow_c]
-         cumulative_covid    <- rbind( cumulative_covid, sum(covid) )
-         cumulative_expcovid <- rbind( cumulative_covid, sum(exp(covid)) )
-
-         covid_r <- covid_r[crow_c]
-
+         cumulative_covid    <- rbind( cumulative_covid, sum(covid) )   # log data
+         cumulative_expcovid <- rbind( cumulative_covid, sum(covid_r) ) # Original data
          aux2   <- aux2[crow_c, ]
          aux2_r <- aux2_r[crow_c, ]
+            #verificantdo o uso covid_r
+         covid_r <- covid_r[crow_c]
 
          correl_1        <- c()
          correltest_1    <- c()
          correltest_CI_1 <- c()
 
          for( k_count in c(1:9) ) {
-            param             <- c()
-            param             <- correlations_f( aux2[, k_count], covid )
+            param                  <- c()
+            param                  <- correlations_f( aux2[, k_count], covid )
             correl_1 [k_count]     <- param[1]
             correltest_1 [k_count] <- param[2]
-            correltest_CI_1   <- cbind( correltest_CI_1, t(c(param[3], param[4])) )
+            correltest_CI_1        <- cbind( correltest_CI_1, t(c(param[3], param[4])) )
          }
 
-         correlacoes     <- rbind( correlacoes, (correl_1) )
-         correlacoest    <- rbind( correlacoest, (correltest_1) )
+         correlacoes     <- rbind( correlacoes, (correl_1) )            # correlation
+         correlacoest    <- rbind( correlacoest, (correltest_1) )       # Pvalue
          correlacoest_CI <- rbind( correlacoest_CI, (correltest_CI_1 ) )# Confidence interval
 
          # ABO analysis
-         # log(a + b) ~= loga + log b = log a*b
+         # atention log(a + b) ~= loga + log b <- log a*b
          # example: log(aux2_r[, 1:9] %*% c(0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-         if(logdata == 1) { #3
+         type_blood = c()
+         type_blood = rbind(type_blood, t(log(aux2_r[, 1:9] %*% c(0, 1, 0, 0, 0, 1, 0, 0, 0)) )) # O
+         type_blood = rbind(type_blood, t(log(aux2_r[, 1:9] %*% c(0, 0, 1, 0, 0, 0, 1, 0, 0))) ) # A
+         type_blood = rbind(type_blood, t(log(aux2_r[, 1:9] %*% c(0, 0, 0, 1, 0, 0, 0, 1, 0))) ) # B
+         type_blood = rbind(type_blood, t(log(aux2_r[, 1:9] %*% c(0, 0, 0, 0, 1, 0, 0, 0, 1))))  # AB
+         type_blood = rbind(type_blood, t(log(aux2_r[, 2:5] %*% vet_ones)))                      # Rh +
+         type_blood = rbind(type_blood, t(log(aux2_r[, 6:9] %*% vet_ones)))                      # Rh -
 
-            type_blood = c()
-            type_blood = rbind( type_blood, t(log(aux2_r[, 1:9] %*% c(0, 1, 0, 0, 0, 1, 0, 0, 0)) )) # O
-            type_blood = rbind( type_blood, t(log(aux2_r[, 1:9] %*% c(0, 0, 1, 0, 0, 0, 1, 0, 0))) ) # A
-            type_blood = rbind( type_blood, t(log(aux2_r[, 1:9] %*% c(0, 0, 0, 1, 0, 0, 0, 1, 0))) ) # B
-            type_blood = rbind( type_blood, t(log(aux2_r[, 1:9] %*% c(0, 0, 0, 0, 1, 0, 0, 0, 1))))  # AB
-            type_blood = rbind( type_blood, t(log(aux2_r[, 2:5] %*% vet_ones)))                      # Rh +
-            type_blood = rbind( type_blood, t(log(aux2_r[, 6:9] %*% vet_ones)))                      # Rh -
+         correl_2        <- c()
+         correltest_2    <- c()
+         correltest_CI_2 <- c()
+         for( k_count in c(1:6) ) {
+            param                  <- c()
+            param                  <- correlations_f( (type_blood[k_count,]), covid )
+            correl_2 [k_count]     <- param[1]
+            correltest_2 [k_count] <- param[2]
+            correltest_CI_2        <- cbind( correltest_CI_2, t(c(param[3], param[4])) )
+         }
 
-            correl_2        <- c()
-            correltest_2    <- c()
-            correltest_CI_2 <- c()
-            for( k_count in c(1:6) ) {
-               param                  <- c()
-               param                  <- correlations_f( (type_blood[k_count,]), covid )
-               correl_2 [k_count]     <- param[1]
-               correltest_2 [k_count] <- param[2]
-               correltest_CI_2        <- cbind( correltest_CI_2, t(c(param[3], param[4])) )
-            }
+         correlacoes_abo_rh     <- rbind(correlacoes_abo_rh    , (correl_2))        # Correlation
+         correlacoest_abo_rh    <- rbind(correlacoest_abo_rh   , (correltest_2))    # Pvalue
+         correlacoest_CI_abo_rh <- rbind(correlacoest_CI_abo_rh, (correltest_CI_2)) # Confidence interval
 
-            correlacoes_abo_rh     <- rbind(correlacoes_abo_rh    , (correl_2))        # Correlation
-            correlacoest_abo_rh    <- rbind(correlacoest_abo_rh   , (correltest_2))    # Pvalue
-            correlacoest_CI_abo_rh <- rbind(correlacoest_CI_abo_rh, (correltest_CI_2)) # Confidence interval
-
-         }else {
-            # Original data (without log transformations)
-            type_blood = c()
-            type_blood = rbind( type_blood, t(aux2[, 1:9] %*% c(0, 1, 0, 0, 0, 1, 0, 0, 0)) ) # O
-            type_blood = rbind( type_blood, t(aux2[, 1:9] %*% c(0, 0, 1, 0, 0, 0, 1, 0, 0)) ) # A
-            type_blood = rbind( type_blood, t(aux2[, 1:9] %*% c(0, 0, 0, 1, 0, 0, 0, 1, 0)) ) # B
-            type_blood = rbind( type_blood, t(aux2[, 1:9] %*% c(0, 0, 0, 0, 1, 0, 0, 0, 1)) )  # AB
-            type_blood = rbind( type_blood, t(aux2[, 2:5] %*% vet_ones) )                      # Rh +
-            type_blood = rbind( type_blood, t(aux2[, 6:9] %*% vet_ones) )                      # Rh -
-
-            correl_2        <- c()
-            correltest_2    <- c()
-            correltest_CI_2 <- c()
-            for( k_count in c(1:6) ) {
-               param                  <- c()
-               param                  <- correlations_f( (type_blood[k_count,]), covid )
-               correl_2 [k_count]     <- param[1]
-               correltest_2 [k_count] <- param[2]
-               correltest_CI_2        <- cbind( correltest_CI_2, t(c(param[3], param[4])) )
-            }
-
-            correlacoes_abo_rh     <- rbind(correlacoes_abo_rh    , (correl_2))        # Correlation
-            correlacoest_abo_rh    <- rbind(correlacoest_abo_rh   , (correltest_2))    # Pvalue
-            correlacoest_CI_abo_rh <- rbind(correlacoest_CI_abo_rh, (correltest_CI_2)) # Confidence interval
-
-         } # End if data with log transformations
-
-         #*               Out results for each day i_days               *#
          if(pca_expanded == 1) {
             if(l_count == 1 || l_count == 3 || l_count == 4) {
                source( str_c(homedir, "aux4-pca.R") )
             }
          }
-
          #
          source( str_c(homedir, "coefficients.R") )
 
          # Pictures of log blood types from countries and deaths (covid vector)
          if(i_days == 120) {
-            if( logdata == 1 ) { #4
+
             source( str_c(homedir, "plot-bloodtypes.R") )
-            }
+
          }
 
          # Pictures of the pandemic evolution used to make video
@@ -498,7 +440,7 @@ for( l_count in c(1:ndata) ) {
 
       } # End loop i_days for N_i days since 5a death.
       print("End i_days loop" )
-
+   #
    source( str_c(homedir, "colnames_correlations.R") )
 
    # Coefficientts of the  Covid-19 analysis
@@ -535,9 +477,8 @@ if( N_i > 35 ) {
 # Normality plots
 #source( str_c(homedir, homenorm, "evolution-normality.R" ) )
 
-# Max and min values of correlations
+# Max and min correlations
 maxmin_values_f(homedir, homecsv, N_i, nx, vfilesout, inf_i, sup_i, type_stat, ndata)
-
 
 # Comparative graphics of pvalues and correlations
 source( str_c(homedir, "pvalues-dif.R") )

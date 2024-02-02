@@ -1,19 +1,17 @@
-# 
-# Return the legend position 
 #
+# Return the legend position
+#
+define_position_f <- function (tdpm, l_count) {
 
-define_position_f <- function (tdpm,ll) {
-  
-  if (tdpm == 0) {
-    if (ll != 4){
-      legendposition <- "bottomright";
-      
-    }else{
-      legendposition <- "bottomright";
-    }
-  }else {
-    legendposition <- "bottomright";
-  }
-  
-  return(legendposition)
+   if (tdpm == 0) {
+      if (l_count != 4){
+         legendposition <- "bottomright"
+      }else{
+         legendposition <- "bottomright"
+      }
+   }else {
+      legendposition <- "bottomright"
+   }
+
+   return(legendposition)
 }

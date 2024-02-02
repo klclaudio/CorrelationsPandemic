@@ -1,0 +1,11 @@
+
+Message  presented when file dataowd5 not exist:
+
+
+Error in print.default("-->> read file", str_c(homedir, homedata, "dataowd5-",  : 
+  invalid printing digits -2147483648
+Calls: print -> print.default
+Execution halted
+
+
+solution: config data = 1 in  conf_options file, to download data.

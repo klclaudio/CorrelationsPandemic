@@ -1,0 +1,13 @@
+Results*/
+Data*/
+*.png
+*.zip
+.Rproj/*
+CovidCorrelations.code-workspace
+TemporalAnalysis_owd_dt*
+TemporalAnalysis_owd_t*
+TemporalAnalysis_owd_b*
+temp.R
+.RData
+.Rhistory
+TesteVariableEscopo.R
