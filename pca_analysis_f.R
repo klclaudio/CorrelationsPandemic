@@ -5,17 +5,6 @@
 # http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/112-pca-principal-component-analysis-essentials/
 pca_analysis_f <- function(data_covid, i_days, l_count, dirout) {
 
-   # library(ggplot2)
-   # library(factoextra)
-   # library(FactoMineR)
-
-   # # Clustering countries, blood and covid data
-   # library(tidyverse)
-   # library(cluster)
-   # library(gridExtra)
-   # library(dplyr)
-   # library(rafalib)
-
    packages_pca <- c( "ggplot2",
                       "factoextra",
                       "FactoMineR",

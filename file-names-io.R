@@ -1,7 +1,7 @@
 #
 # File names in and out
 #
-cluster_files = c("bloodcovid",
+cluster_files <- c("bloodcovid",
                   "bloodcovid-OutCH-I",
                   "bloodcovid-outlarger",
                   "bloodcovid-larger")

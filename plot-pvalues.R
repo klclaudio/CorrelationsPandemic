@@ -120,23 +120,6 @@ png( str_c( homedir, homepval, "PvaluesCovidABO", type_stat, l_count, "_", i_day
          ylim = c(0, 1),  col = color_l[4], type = "l", lty = 6, pch = 4 ) # AB-
    abline( h = 0.05, col = "grey", lty = 2, lwd = 2 )
 
-
-#   colnames(correlacoest_abo_rh)  <- c( "O",
-#                                        "A",
-#                                        "B",
-#                                        "AB",
-#                                        "Rh+",
-#                                        "Rh-"
-#                                      )
-
-#   colnames(correlacoes_abo_rh)   <- c( "O",
-#                                        "A",
-#                                        "B",
-#                                        "AB",
-#                                        "Rh+",
-#                                        "Rh-"
-#                                      )
-
    plot( xp, correlacoest_abo_rh[,"O"],  main = "ABO System (c)", ylab = "Pvalues", xlab = "Days since five deaths (x 10²)",
          ylim = c(0, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[2], type = 'l', lty = 2, pch = "o" ) #O
    abline( h = 0.05, col = "grey", lty = 2, lwd = 2 )
@@ -196,5 +179,5 @@ png( str_c( homedir, homepval, "PvaluesCovidABO", type_stat, l_count, "_", i_day
    abline( h = 0.05, col = "grey", lty = 2, lwd = 2 )
 
 par(new = FALSE)
-dev.off() 
-#End plotpvalues
+dev.off()
+# End plotpvalues

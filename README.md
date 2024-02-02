@@ -8,10 +8,8 @@ Configure file conf-options.R before run.
 
 The results are saved in the directory: Results-cumulative-(date of analysis>) .
 
-Since version v0.0 has automatic data file downloaded from  Our World in Data: https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv , in this current version there is an option to use saved data.
+Since version v0.0 has automatic data file downloaded from  Our World in Data: https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv , in this current version there is option to use saved data.
 
-Refactoring and others advances have been done. R programming was used in a structured language manner.
+Refactoring and others advances have been done, using weekly data from 2024 owid-covid-data.
 
-Current results (2024) have been prepared to new version of the SSRN article above.
-
-Future work: studies of derivatives from temporal evolution of the coefficients.
+Future work: studies of derivatives from temporal evolution of coefficients.

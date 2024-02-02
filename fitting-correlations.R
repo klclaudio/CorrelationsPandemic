@@ -1,12 +1,12 @@
 #
 # Fitting correlations and saves results files in the folder <homefit>
 #
-library (tidyverse)
-library (cluster)
-library (factoextra)
-library (gridExtra)
-library (dplyr)
-library (rafalib)
+# library (tidyverse)
+# library (cluster)
+# library (factoextra)
+# library (gridExtra)
+# library (dplyr)
+# library (rafalib)
 
 # Correlations
 coefi <- c()

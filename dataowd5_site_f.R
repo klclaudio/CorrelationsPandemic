@@ -38,7 +38,7 @@ dataowd5_site_f <- function (owid_file, date_analysis, homedir, homedata, dataow
    dataowd5[1, 8] <- 1
 
    i_count <- 2
-   k <- 2
+   k       <- 2
 
    while(i_count <= N) {
       if( dataowd5[i_count, "location"] == dataowd5[i_count-1, "location"] ) { #nomes dos países

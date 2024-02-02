@@ -54,8 +54,8 @@ mypar( 1, 1 )
         ylim = c(0, ylim_sup),
         xlim = c(1, xlim_sup),
         type = "l",
-        lty = 1,
-        lwd = 2
+        lty  = 1,
+        lwd  = 2
         )
   #grid(lty = 3, lwd = 1)
   abline( v = 12, col = "grey", lty = 2, lwd = 2 )
@@ -177,10 +177,9 @@ xlimite = N_i
         ylim = c(0, ylim_sup),
         xlim = c(1, xlimite),
         type = "l",
-        lty = 1,
-        lwd = 2
+        lty  = 1,
+        lwd  = 2
       )
-  #grid(lty = 3, lwd = 1)
   abline(v = 12, col = "grey", lty = 2, lwd = 2)
   axis( side = 4, cex.axis = ftsizeax )
   mtext( "Deaths", cex = ftsizelb, side = 4, line = 3)
@@ -249,9 +248,9 @@ mypar()
 par( new = FALSE )
 dev.off()
 
-#
-#-------------------------------Comparative Analysis 50 days----------------------------------
-#
+
+#                                 Comparative Analysis 50 days
+
 png( str_c(homedir, homedaily, "ComparativeAnalysis_50", ".png"), width = 700, height = 500 )
 mypar(1, 1)
  par( new = FALSE )
@@ -313,7 +312,7 @@ mypar(1, 1)
         legend( "top", legend = c("Rh +", "Rh -"), lty = c(1, 2), bty = "n", cex = 1.0, bg = 'white' )
         grid(lty = 3, lwd = 1)
      }else{
-#        legend( "topleft", legend = c("Rh +", "Rh -"), lty = c(1, 2), bty = "n", cex = 1.0, bg = 'white' )
+         #legend( "topleft", legend = c("Rh +", "Rh -"), lty = c(1, 2), bty = "n", cex = 1.0, bg = 'white' )
          legend( 8, 1.1, legend = c("Rh+", "Rh-", "Rh+ (-12 days)"), lwd = c(1, 1, 2), col = c("brown", "green4", "grey"),
                  lty = c(1, 2, 1), bty = "n", cex = 1.3, bg = 'white'
                 )
@@ -324,12 +323,11 @@ mypar(1, 1)
         legend( "top", legend = c("Rh +", "Rh -"), lty = c(1, 2), bty = "n", cex = 1.0, bg = 'white' )
         grid(lty = 3, lwd = 1)
      }else{
-      # legend( "topright", legend = c("Rh +", "Rh -"), lty = c(1, 2, 1), bty = "n", cex = 1.3, bg = 'white' )
+       # legend( "topright", legend = c("Rh +", "Rh -"), lty = c(1, 2, 1), bty = "n", cex = 1.3, bg = 'white' )
        legend( 8, 1.1, legend = c("Rh +", "Rh -", "Rh+ (-12 days)"), lwd = c(1, 1, 2), col = c("black", "black", "grey"),
                lty = c(1, 2, 1), bty = "n", cex = 1.3, bg = 'white'
              )
 
-#        grid(lty = 3, lwd = 1)
      }
 
   }
@@ -361,8 +359,8 @@ plot( covid_ll[1:50, 4],
         ylim = c(0, ylim_sup),
         xlim = c(1, 50),
         type = "l",
-        lty = 1,
-        lwd = 2
+        lty  = 1,
+        lwd  = 2
     )
 #  grid(lty = 3, lwd = 1)
   abline (v = 12, col = "grey", lty = 2, lwd = 2)
@@ -374,12 +372,10 @@ mypar()
 par( new = FALSE )
 dev.off()
 
-#colnames(dif) =  c("pvalue_rhp", "pvalue_rhn",  "rhp", "rhn", "defasagen_t")
-#rownames(dif) =  c("min", "max")
 
 i_min_trhn <- which.min( correlacoest_abo_rh[ , "Rh-"][4:25] ) + 3
 min_trhn <- min( correlacoest_abo_rh[ , "Rh-"][4:25] )
-#9
+
 i_min_rhn <- which.min( correlacoest_abo_rh[ , "Rh-"][4:25] ) + 3
 min_rhn <- min( correlacoest_abo_rh[ , "Rh-"][4:25] )   #9
 
