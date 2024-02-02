@@ -2,7 +2,7 @@ Results*/
 Data*/
 *.png
 *.zip
-.Rproj/*
+.Rproj*
 CovidCorrelations.code-workspace
 TemporalAnalysis_owd_dt*
 TemporalAnalysis_owd_t*
@@ -10,4 +10,7 @@ TemporalAnalysis_owd_b*
 temp.R
 .RData
 .Rhistory
+README.md
+README.html
 TesteVariableEscopo.R
+launch.json
