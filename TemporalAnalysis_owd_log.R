@@ -12,11 +12,11 @@
 #
 # v0.0 - base code.
 # v0.1 - refactored and new comments.
-# v0.2 - add optioons analyses to deaths rates per million and refactorings.
-# V1.0 - use of 2024 owid data (weekly),
+# v0.2 - add analysis option for death rates per million and refactorings.
+# v1.0 - use of 2024 owid data (weekly),
 #        PCA,
 #        log option only,
-#        col names id instead col number id and
+#        column name instead of number,
 #        refactorings.
 #
 rm(list = ls(all = TRUE))
@@ -45,6 +45,7 @@ source( str_c(homedir, "create_dir_f.R") )
 source( str_c(homedir, "limit_f.R") )
 source( str_c(homedir, "define_position_f.R") )
 source( str_c(homedir, "obtain_data_f.R") )
+source( str_c(homedir, "x_label_graph_f.R") )
 
 source( str_c(homedir, "conf-options.R") )
 

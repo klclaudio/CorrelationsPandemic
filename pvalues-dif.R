@@ -2,8 +2,10 @@
 # Plot comparative analysis and it saves in the folder <homedaily>
 #
 
-color_l = c("red", "blue", "black", "cyan2")   # A, O, B, AB
-   color_l2 = c("brown", "green4")  #rhp rhn
+color_l  <- c("red", "blue", "black", "cyan2")   # A, O, B, AB
+color_l2 <- c("brown", "green4")  #rhp rhn
+
+x_label <- x_label_graph_f(interval_days)
 
 xlim_sup = nx
 png( str_c(homedir, homedaily, "ComparativeAnalysis", ".png"), width = 700, height = 500 )
@@ -12,7 +14,7 @@ mypar( 1, 1 )
  par( new = FALSE )
  par( mar = c(4, 5, 4, 5) )
 
- plot( correlacoest_abo_rh[ c(13:xlim_sup), "Rh+"],  main = "Comparative Analysis", ylab = "", xlab = "Days since five deaths",
+ plot( correlacoest_abo_rh[ c(13:xlim_sup), "Rh+"],  main = "Comparative Analysis", ylab = "", xlab = x_label,
        ylim = c(-1, 1), xlim = c(1, xlim_sup), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = "grey",
        type = "l", lty = 1, lwd = 2, pch = "+"
      )
@@ -49,7 +51,7 @@ mypar( 1, 1 )
   ylim_sup = max(ceiling(covid_ll[,4]))
   plot(covid_ll[, 4],
        #main = str_c("", idg[iii]),
-        xlab = "Days since five deaths",
+        xlab = x_label,
         ylab = "", cex.main = ftsize, cex.lab = ftsizelb,  axes = F, cex.axis = ftsizeax,
         ylim = c(0, ylim_sup),
         xlim = c(1, xlim_sup),
@@ -63,7 +65,7 @@ mypar( 1, 1 )
   mtext( "Deaths", cex = ftsizelb, side = 4, line = 3 )
 
   par( new = TRUE )
-  plot( correlacoest_abo_rh[c(1:xlim_sup), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+  plot( correlacoest_abo_rh[c(1:xlim_sup), "Rh+"],  main = "", ylab = "", xlab = x_label,
         ylim = c(-1, 1), xlim = c(1, xlim_sup), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = color_l2[1],
         type = "l", lty = 1, pch = "+"
        )
@@ -107,13 +109,13 @@ mypar( 1, 1 )
          ylim = c(-1, 1), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l2[2], type = "l", lty = 2, pch = "o"
        )
       par(new = TRUE)
-      plot( correlacoest_abo_rh[ c(1:xlim_sup), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+      plot( correlacoest_abo_rh[ c(1:xlim_sup), "Rh+"],  main = "", ylab = "", xlab = x_label,
             ylim = c(-1, 1), xlim = c(1, xlim_sup), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = color_l2[1],
             type = "l", lty = 1, pch = "+"
           )
        par( new = TRUE )
 
-      plot( correlacoest_abo_rh[c(13:xlim_sup), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+      plot( correlacoest_abo_rh[c(13:xlim_sup), "Rh+"],  main = "", ylab = "", xlab = x_label,
             ylim = c(-1, 1), xlim = c(1, xlim_sup), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = "grey",
             type = "l", lwd = 2, lty = 1, pch = "+"
           )
@@ -135,7 +137,7 @@ mypar(1, 1)
  par( new = FALSE )
  par ( mar = c(4, 5, 4, 5) )
 xlimite = N_i
- plot( correlacoest_abo_rh[ c(13:xlimite), "Rh+"],  main = "Comparative Analysis", ylab = "", xlab = "Days since five deaths",
+ plot( correlacoest_abo_rh[ c(13:xlimite), "Rh+"],  main = "Comparative Analysis", ylab = "", xlab = x_label,
        ylim = c(-1, 1), xlim = c(1, xlimite), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = "grey", type = "l",
        lty = 1, lwd = 2, pch = "+"
      )
@@ -172,7 +174,7 @@ xlimite = N_i
   ylim_sup = max( ceiling(covid_ll[, 4]) )
   plot( covid_ll[, 4],
        #main = str_c("", idg[iii]),
-        xlab = "Days since five deaths",
+        xlab = x_label,
         ylab = "", cex.main = ftsize, cex.lab = ftsizelb,  axes = F, cex.axis = ftsizeax,
         ylim = c(0, ylim_sup),
         xlim = c(1, xlimite),
@@ -185,7 +187,7 @@ xlimite = N_i
   mtext( "Deaths", cex = ftsizelb, side = 4, line = 3)
 
   par(new = TRUE)
-  plot( correlacoest_abo_rh[c(1:xlimite), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+  plot( correlacoest_abo_rh[c(1:xlimite), "Rh+"],  main = "", ylab = "", xlab = x_label,
         ylim = c(-1, 1), xlim = c(1, xlimite), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,
         axes = F, col = color_l2[1], type = "l", lty = 1, pch = "+" )
         abline(h = 0.05, col = "grey", lty = 2, lwd = 2
@@ -229,13 +231,13 @@ xlimite = N_i
          type = "l", lty = 2, pch = "o"
         )
       par(new = TRUE)
-      plot( correlacoest_abo_rh[ , "Rh+"][c(1:xlimite)],  main = "", ylab = "", xlab = "Days since five deaths",
+      plot( correlacoest_abo_rh[ , "Rh+"][c(1:xlimite)],  main = "", ylab = "", xlab = x_label,
             ylim = c(-1, 1), xlim = c(1, xlimite), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = color_l2[1],
             type = "l", lty = 1, pch = "+"
           )
        par(new = TRUE)
 
-      plot( correlacoest_abo_rh[ , "Rh+"][c(13:xlimite)],  main = "", ylab = "", xlab = "Days since five deaths",
+      plot( correlacoest_abo_rh[ , "Rh+"][c(13:xlimite)],  main = "", ylab = "", xlab = x_label,
             ylim = c(-1, 1), xlim = c(1, xlimite), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = "grey",
             type = "l", lwd = 2, lty = 1, pch = "+"
           )
@@ -257,7 +259,7 @@ mypar(1, 1)
  par( mar = c(4, 5, 4, 5) )
 
 # Rh positivo - teste
- plot( correlacoest_abo_rh[ , "Rh+"][c(13:63)],  main = "Comparative Analysis", ylab = "", xlab = "Days since five deaths",
+ plot( correlacoest_abo_rh[ , "Rh+"][c(13:63)],  main = "Comparative Analysis", ylab = "", xlab = x_label,
        ylim = c(-1, 1), xlim = c(1, 50), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = "grey", lwd = 2,
        type = "l", lty = 1, pch = "+"
      )
@@ -286,7 +288,7 @@ mypar(1, 1)
 
       par( new = TRUE )
 
-    plot( correlacoest_abo_rh[ c(1:50), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+    plot( correlacoest_abo_rh[ c(1:50), "Rh+"],  main = "", ylab = "", xlab = x_label,
           ylim = c(-1, 1), xlim = c(1, 50), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = color_l2[1],
           type = "l", lty = 1, pch = "+"
         )
@@ -296,13 +298,13 @@ mypar(1, 1)
 # Rh positivo
   par(new = TRUE)
 
-      plot( correlacoest_abo_rh[ c(13:63), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+      plot( correlacoest_abo_rh[ c(13:63), "Rh+"],  main = "", ylab = "", xlab = x_label,
             ylim = c(-1, 1), xlim = c(1, 50), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = "grey", lwd = 2,
             type = "l", lty = 1, pch = "+"
           )
 
       par(new = TRUE)
-      plot( correlacoest_abo_rh[c(1:50), "Rh+"],  main = "", ylab = "", xlab = "Days since five deaths",
+      plot( correlacoest_abo_rh[c(1:50), "Rh+"],  main = "", ylab = "", xlab = x_label,
             ylim = c(-1, 1), xlim = c(1, 50), cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax,  axes = F, col = color_l2[1],
             type = "l", lty = 1, pch = "+"
           )
@@ -354,7 +356,7 @@ par( new = TRUE )
 ylim_sup = max( ceiling(covid_ll[1:50, 4]) )
 plot( covid_ll[1:50, 4],
        #main = str_c("", idg[iii]),
-        xlab = "Days since five deaths",
+        xlab = x_label,
         ylab = "", cex.main = ftsize, cex.lab = ftsizelb,  axes = F, cex.axis = ftsizeax,
         ylim = c(0, ylim_sup),
         xlim = c(1, 50),

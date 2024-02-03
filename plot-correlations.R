@@ -4,6 +4,9 @@
 ftsizeax <- 1.3
 ftsizelb <- 1.5
 ftsize   <- 1.5
+
+x_label <- x_label_graph_f(interval_days)
+
 legendposition <- define_position_f (tdpm,l_count)
 
 ylimit   <- limit_f(tdpm,l_count)
@@ -22,7 +25,7 @@ dir_corr_png <- str_c(dir_corr, plot_title, ext.png)
 dir_corr_png %>% png(width = 500, height = 500)
    mypar()
    par( mar = c(4, 4, 4, 4) )
-   plot( correlacoes[, 1], main = "Population analysis", ylab = "Correlations", xlab = "Days since five deaths",
+   plot( correlacoes[, 1], main = "Population analysis", ylab = "Correlations", xlab = x_label,
          ylim = ylimit, cex.main = ftsize, cex.lab =  ftsizelb, cex.axis =  ftsizeax, type = "l", lty = 1 )  # Population
    grid(lty = 3, lwd = 1)
 dev.off()
@@ -35,7 +38,7 @@ dir_corr_png %>% png(width = 700, height = 700)
    par(new = FALSE)
    par( mar = c(4, 4, 4, 4) )
 
-      plot( correlacoes[, "O+"], main = "ABO System and Rh+ (a)", ylab = "Correlations", xlab = "Days since five deaths",
+      plot( correlacoes[, "O+"], main = "ABO System and Rh+ (a)", ylab = "Correlations", xlab = x_label,
             ylim = ylimit, cex.main = ftsize, cex.lab = ftsizelb, cex.axis = ftsizeax, col = color_l[2], type = "l", lty = 2, pch = 10 )  # O+
       legend(legendposition, legend = c("A +", "O +", "B +", "AB +", "Pop"), bty = "n",  col = color_l, lty = type_l, cex = 1.0 )
       grid( lty = 3, lwd = 1)
@@ -59,7 +62,7 @@ dir_corr_png %>% png(width = 700, height = 700)
       grid( lty = 3, lwd = 1 )
 
 
-      plot( correlacoes[, "O-"], main = "ABO System and Rh- (b)", ylab = "Correlations", xlab = "Days since five deaths",
+      plot( correlacoes[, "O-"], main = "ABO System and Rh- (b)", ylab = "Correlations", xlab = x_label,
             ylim = ylimit, cex.main = ftsize, cex.lab = ftsizelb,  cex.axis = ftsizeax, col = color_l[2], type = "l", lty = 2,  pch = 1)  # O-
       legend(legendposition, legend = c("A -", "O -", "B -", "AB -", "Pop"), lty = type_l, bty = "n",  col = color_l, cex = 1.0, bg = 'white' )
 
@@ -82,7 +85,7 @@ dir_corr_png %>% png(width = 700, height = 700)
             ylim = ylimit, cex.main = ftsize, cex.lab =  ftsizelb, cex.axis =  ftsizeax, type = "l", lty = 1 )  # Population
 
 
-      plot( correlacoes_abo_rh[, "O"],  main = "ABO System (c)", ylab = "Correlations", xlab = "Days since five deaths",
+      plot( correlacoes_abo_rh[, "O"],  main = "ABO System (c)", ylab = "Correlations", xlab = x_label,
             ylim = ylimit, cex.main = ftsize, cex.lab =  ftsizelb,  cex.axis =  ftsizeax, col = color_l[2], type = 'l', lty = 2, pch = "o") # O
 
       legend(legendposition, legend = c("A", "O", "B", "AB", "Pop"), lty = type_l, bty = "n",  col = color_l, cex = 1.0, bg = 'white' )
@@ -105,7 +108,7 @@ dir_corr_png %>% png(width = 700, height = 700)
             ylim = ylimit, cex.main = ftsize, cex.lab =  ftsizelb, cex.axis =  ftsizeax, type = "l", lty = 1 )  # Population
 
 
-   plot( correlacoes_abo_rh[, "Rh+"],  main = "Rhesus(Rh) System (d)", ylab = "Correlations", xlab = "Days since five deaths",
+   plot( correlacoes_abo_rh[, "Rh+"],  main = "Rhesus(Rh) System (d)", ylab = "Correlations", xlab = x_label,
          ylim = ylimit, cex.main = ftsize, cex.lab =  ftsizelb,  cex.axis =  ftsizeax, col = color_l2[1], type = "l", lty = 1, pch = "+" ) # Rh-
    legend( legendposition, legend = c("Rh +", "Rh -", "Pop"), lty = c(1, 2, 1), bty = "n", col = color_l2, cex = 1.0, bg = 'white' )
    grid( lty = 3, lwd = 1 )

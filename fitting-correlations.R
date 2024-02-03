@@ -21,6 +21,8 @@ ftsizelb <- 1.5
 ftsize   <- 1.5
 xlimite  <- c(0.01,(N_i / 100))
 
+x_label <- x_label_graph_f(interval_days)
+
 legendposition <- define_position_f (tdpm, l_count)
 
 #
@@ -45,7 +47,7 @@ png( str_c(homedir, homefit,"Corr_Populations_fit_", nx ,"_", px_wd_hg, ".png"),
 
       plot( xx, correlacoes[1:N_i,"Pop."], main=str_c("Population Analysis - ",i_count),
             ylab     = "Correlations",
-            xlab     = "Days since five deaths (x 10²)",
+            xlab     = str_c(x_label, "(x 10²)"),
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
@@ -123,7 +125,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
    par(new = FALSE)
    par(mar = c(4, 4, 4, 4))
       plot( xx, correlacoes[1:N_i,4], main="ABO System and Rh+ (a)", ylab="Correlations",
-            xlab     ="Days since five deaths (x 10²)",
+            xlab     =str_c(x_label, "(x 10²)"),
             ylim     = ylimit,
             xlim     = xlimite,
             cex.main = ftsize,
@@ -267,7 +269,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
 
       plot( xx, correlacoes[1:N_i, 12], main="ABO System and Rh- (b)",
             ylab="Correlations",
-            xlab="Days since five deaths (x 10²)",
+            xlab=str_c(x_label, "(x 10²)"),
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
@@ -386,7 +388,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
    par(new = FALSE)
       plot( xx, correlacoes[1:N_i,20], main="ABO System (c)",
             ylab="Correlations",
-            xlab="Days since five deaths (x 10²)",
+            xlab=str_c(x_label, "(x 10²)"),
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
@@ -521,7 +523,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
    par(new = FALSE)
       plot( xx, correlacoes[1:N_i,28],  main="Rhesus(Rh) System (d)",
             ylab     = "Correlations",
-            xlab     = "Days since five deaths (x 10²)",
+            xlab     = str_c(x_label, "(x 10²)"),
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,

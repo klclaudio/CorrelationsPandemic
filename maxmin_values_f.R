@@ -2,6 +2,7 @@
 # Defines Max and Min correlations and it saves results in the folder <homecsv>
 #
  maxmin_values_f <- function(homedir, homecsv, N_i, nx, vfilesout, inf_i, sup_i, type_stat, ndata) {
+ library("stringr")
 
  # Analysis j_count: 1, 2, 3 and 4
    j_count <- 1
