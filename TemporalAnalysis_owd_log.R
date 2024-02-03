@@ -63,12 +63,13 @@ source( str_c(homedir,"home-directories.R") )
 # Obtaining data from owid site or reading from
 dataowd5      <- c()
 dataowd5_days <- c()
+print(" Data reading")
 obtain_data_f(owid_file, data_site, date_analysis, homedir, homedata)
 # Data sorted by countries
 #dataowd5 <- read.csv( str_c(homedir, homedata, "dataowd5-", date_analysis, ".csv") )
 # Data sorted by numbers days since 5th death.
 #dataowd5_days <- read.csv( str_c(homedir, homedata, "dataowd5-", date_analysis, "-order.csv") )
-print("   Read files - Ok")
+print(" Read files - Ok")
 
 # Many countries are excluded from the analysis when use PCA
 # cols: 45-populations, 44-stringency_index, 46-populations_density, 46-cardiovasc_death_rate,

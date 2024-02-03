@@ -2,9 +2,9 @@
 
 Correlations in pandemic world are calculated between Covid-19 deaths and ABO groups. The initial results from this code are shown in SSRN: <http://dx.doi.org/10.2139/ssrn.3794044>.
 
-The code was implemented in R, the main file are TemporalAnalysis_owd.R and TemporalAnalysis_owd_log.R.
+The code was implemented in R, the main files are TemporalAnalysis_owd.R and TemporalAnalysis_owd_log.R.
 
-Configure file conf-options.R before run.
+Configuring file is conf-options.R, should see it before run.
 
 The results are saved in the directory: Results-cumulative-(date of analysis>) .
 
