@@ -10,7 +10,7 @@ png( str_c( homedir, homecum, "CumulativeCovid", type_stat,"_", l_count, ".png")
    plot( cumulative_covid,
          main     = str_c("Pandemic - ", type_stat," Cumulative Covid"),
          ylab     = str_c("Cumulative ", type_stat, "Covid"),
-         xlab     = str_c(type_stat, x_label),
+         xlab     = str_c(type_stat, " ", x_label),
          cex.main = ftsize,
          cex.lab  = ftsize,
          cex.axis = ftsize )

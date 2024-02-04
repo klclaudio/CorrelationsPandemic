@@ -10,7 +10,7 @@ New structure where R/ folder contains source code and Data/: blood types covid 
 
 Configuring file is conf-options.R, should see it before run.
 
-The results are saved in the directory: R/Results-cumulative-(date of analysis>).
+The results are saved in the directory: R/Results-cumulative-(date of analysis).
 
 Refactoring and others advances have been done, using weekly data from 2024 owid-covid-data.
 

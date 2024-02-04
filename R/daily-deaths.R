@@ -5,6 +5,8 @@ aux_covid_ll   <- cbind( covid_ll,  c(1:N_i) )
 nomes_analises <- c("analise1", "analise2", "analise3", "analise4", "dias5")
 colnames (aux_covid_ll) <- nomes_analises
 
+x_label <- x_label_graph_f(interval_days)
+
 x_low <- 14/interval_days
 x_sup <- 35/interval_days
 
@@ -43,7 +45,7 @@ png( str_c( homedir, homedaily, "daily_deaths.png"), width  =  700, height  =  7
       ylim_sup <- max(covid_ll[,i_count])
       plot( covid_ll[, i_count],
             main      =  str_c("Total daily deaths ", idg[i_count]),
-            xlab      =  "Days since five deaths",
+            xlab      =  str_c(x_label," since five deaths"),
             ylab      =  "Deaths",
             cex.main  =  ftsize,
             cex.lab   =  ftsizelb,
@@ -67,7 +69,7 @@ png( str_c( homedir, homedaily, "daily_deaths_log.png"), width  =  700, height  
       ylim_sup <- max(ceiling( log(covid_ll[,i_count]) ))
       plot( log(covid_ll[, i_count]),
             main     = str_c("Total daily log deaths ", idg[i_count]),
-            xlab     = "Days since five deaths",
+            xlab     =  str_c(x_label, " since five deaths"),
             ylab     = "Deaths",
             ylim     = c(2.5, ylim_sup),
             cex.main =  ftsize,
@@ -93,7 +95,7 @@ png( str_c( homedir, homedaily, "daily_deaths50.png"), width = 700, height = 700
    for( i_count in c(1:ndata) ) {
       plot( covid_ll[1:min(c(min_x, N_i)), i_count],
             main     = str_c("Total daily deaths ", idg[i_count]),
-            xlab     = "Days since five deaths",
+            xlab     =  str_c(x_label, " since five deaths"),
             ylab     = "Deaths",
             ylim     = c(0, ylim_sup),
             cex.main = ftsize,
@@ -127,7 +129,7 @@ png( str_c( homedir, homedaily, "daily_deaths_log.png"), width = 700, height = 7
       ylim_sup <- ceiling ( log( covid_ll[1: min(c(80, N_i)),i_count]) )
       plot( log( covid_ll[1: min(c(80, N_i)), i_count] ),
             main     = str_c("Total daily log deaths ", idg[i_count]),
-            xlab     = "Days since five deaths",
+            xlab     =  str_c(x_label, " since five deaths"),
             ylab     = "Deaths",
             ylim     = c(2.5, 13),
             cex.main = ftsize,

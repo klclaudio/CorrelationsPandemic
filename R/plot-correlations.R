@@ -19,9 +19,9 @@ xp       <- c(1:N_i)/100
  ext_png  = ""
 
 plot_title   <- str_c( "CorrelationsPopulations" )
-ext.png      <- str_c( type_stat, l_count, "_", i_days, ".png" )
+ext_png      <- str_c( type_stat, l_count, "_", i_days, ".png" )
 dir_corr     <- str_c( homedir, homecorr )
-dir_corr_png <- str_c(dir_corr, plot_title, ext.png)
+dir_corr_png <- str_c(dir_corr, plot_title, ext_png)
 dir_corr_png %>% png(width = 500, height = 500)
    mypar()
    par( mar = c(4, 4, 4, 4) )
@@ -31,7 +31,7 @@ dir_corr_png %>% png(width = 500, height = 500)
 dev.off()
 
 plot_title   <- "CorrelationsCovidABO"
-dir_corr_png <- str_c(dir_corr, plot_title, ext.png)
+dir_corr_png <- str_c(dir_corr, plot_title, ext_png)
 dir_corr_png %>% png(width = 700, height = 700)
 #png( str_c( homedir, homecorr, "CorrelationsCovidABO", type_stat, l_count, "_", i_days, ".png"), width = 700, height = 700 )
    mypar( 2, 2 )

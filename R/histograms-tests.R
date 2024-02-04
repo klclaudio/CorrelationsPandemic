@@ -6,12 +6,14 @@ ftsizeax <- 1.3
 ftsizelb <- 1.5
 ftsize   <- 1.5
 
+x_label <- x_label_graph_f(interval_days)
+
 crow_d <- order(covid)
 dados  <- covid[crow_d]
 png( str_c(homedir, homehist, "Normality", type_stat, "_", l_count,"_", i_days, ".png"), width = 500, height = 500 )
    par( mar = c(6, 6, 6, 1) )
    hist( dados,
-         main     = str_c (" Histogram ", "(", i_days, " days)"),
+         main     = str_c (" Histogram ", "(", i_days, " ", x_label, ")"),
          xlab     = str_c(type_stat, " Covid "),
          cex.main = ftsize,
          cex.lab  = ftsizelb,

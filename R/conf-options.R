@@ -26,8 +26,8 @@ nx            <- 180 # 140         #140             # 1050 022024
 # Sets of countries analyzed.
 ndata         <- 4
 
-# Data interval days from owid data, 19012024 uses 1, data02022024 uses 7.
-interval_days <- 1   # 1
+# Data interval days from owid data, 19012024 uses 7, data02022024 uses 1.
+interval_days <- 7   # 1
 
 # Period to find max correlations.
 inf_i <- c(35, 35, 35, 35)

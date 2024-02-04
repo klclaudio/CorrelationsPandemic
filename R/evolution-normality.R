@@ -1,14 +1,17 @@
 #
 # Plot normality tests, saves plots in the folder <homenorm>
 #
+
+x_label <- x_label_graph_f(interval_days)
+
 png( str_c(homedir, homenorm, "Normality_tests", type_stat, l_count, ".png"), width = 500, height = 500 )
    mypar()
    par( mar = c(5, 4, 4, 4) + 0.3 )
 
    plot( p_values_histogram,
          ylab     = "",
-         xlab     = "Days since 5 deaths",
-         main     = str_c ("Normality tests for ",i_days," days "), type = "l",
+         xlab     = str_c(x_label, "since 5 deaths"),
+         main     = str_c ("Normality tests for ",i_days, " ", x_label), type = "l",
          cex.main = ftsize,
          cex.lab  = ftsizelb,
          cex.axis = ftsizeax,

@@ -7,6 +7,8 @@ x  <- c(1:nx) / 100        # used in fitting
 xx <- c(1:N_i) / 100       # used from all domain
 q  <- x
 
+x_label <- x_label_graph_f(interval_days)
+
 color_l <- c("red","blue","black","green3")
 
 maxresiduals_a   <- c()
@@ -42,7 +44,7 @@ png( str_c( homedir,homecoeff,"CoeffCovid19_Log_Angular",l_count,".png"), width 
          main     = str_c( "Temporal Characterization of the COVID-19 (", l_count, ")" ),
          xlim     = xlimitec,
          ylim     = ylimitea,
-         xlab     = "Days since five deaths (x 10²)",
+         xlab     = str_c(x_label, " since five deaths (x 10²)"),
          ylab     = "Angular Coefficients",
          cex.main = ftsize,
          cex.lab  = ftsizelb,
@@ -92,7 +94,7 @@ png( str_c( homedir,homecoeff, "CoeffCovid19_Log_Linear", l_count, ".png"), widt
          main     = str_c( "Temporal Characterization of the COVID-19 (",l_count,")" ),
          xlim     = xlimitec,
          ylim     = ylimitec,
-         xlab     = "Days since five deaths (x 10²)",
+         xlab     = str_c(x_label, " since five deaths (x 10²)"),
          ylab     = "Linear Coefficients",
          cex.main = ftsize,
          cex.lab  = ftsizelb,

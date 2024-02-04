@@ -8,12 +8,15 @@ ftsizeax <- 1.3
 ftsizelb <- 1.5
 ftsize   <- 1.5
 
+x_label <- x_label_graph_f(interval_days)
+
+
 png( str_c(homedir, homemov, type_stat,"CovidBlood_ABO+", l_count,"_", i_days, ".png"), width = 500, height = 500 )
    for( j_count in c(2:5) ) {
       crow_j = order( aux2[,j_count] )
       par(mar = c(6, 6, 6, 6))
       plot( aux2[crow_j, j_count], covid[crow_j],
-            main     = str_c (" Log deaths x blood type","(", i_days, " days)"),
+            main     = str_c (" Log deaths x blood type","(", i_days, " ", x_label, ")"),
             ylab     = "Covid",
             xlab     = "Countries population - ABO blood types",
             xlim     = xlimite,
@@ -41,7 +44,7 @@ png (str_c(homedir,homemov,type_stat,"CovidBlood_ABO-", l_count ,"_", i_days,".p
       crow_j = order( aux2[,j_count] )
       par(mar = c(6, 6, 6, 6))
       plot( aux2[crow_j,j_count],covid[crow_j],
-            main     = str_c (" Log deaths x blood types"," (", i_days, " days)"),
+            main     = str_c (" Log deaths x blood types"," (", i_days, " ", x_label, ")"),
             ylab     = "Covid",
             xlab     = "Countries population - ABO blood types",
             xlim     = xlimite,
