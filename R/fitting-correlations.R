@@ -11,7 +11,7 @@
 # Correlations
 coefi <- c()
 
-nx <- N_i - 40
+#nx <- N_i - 40
 x  <- c(1:nx) / 100          #vector fitting
 xx <- c(1:(N_i)) / 100       #plot axis
 q  <- x
@@ -38,11 +38,11 @@ px_wd_hg <- 700   #size pixel for pictures
 
 #Plot populations
 png( str_c(homedir, homefit,"Corr_Populations_fit_", nx ,"_", px_wd_hg, ".png"), width = px_wd_hg, height = px_wd_hg )
-   mypar(2,2)
+   mypar(2, 2)
    par(mar = c(4, 4, 4, 4))
    for(i_count in c(1:ndata)){
 
-      ylimit = limit_f(tdpm,i_count)
+      ylimit <- limit_f(tdpm, i_count)
       correlacoes <- read.csv( vfilesout[i_count] ) #"bloodcovid_correls_Log.csv"
 
       plot( xx, correlacoes[1:N_i,"Pop."], main=str_c("Population Analysis - ",i_count),
@@ -121,7 +121,7 @@ for(i_count in c(1:ndata)){
 
 
 png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_", px_wd_hg,".png"), width = px_wd_hg, height = px_wd_hg)
-   mypar(2,2)
+   mypar(2, 2)
    par(new = FALSE)
    par(mar = c(4, 4, 4, 4))
       plot( xx, correlacoes[1:N_i,4], main="ABO System and Rh+ (a)", ylab="Correlations",
@@ -326,9 +326,10 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
-            pch      =  1, type     = "l",
+            pch      =  1,
+            type     = "l",
             cex      =  0.01,
             lwd      = 0.5,
             lty      = 3 )  #B-
@@ -343,7 +344,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             type     = "l",
             col = color_l[3],
@@ -359,7 +360,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             pch      =  1,
             type     = "l",
@@ -377,10 +378,10 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             type     = "l",
-            col = color_l[4],
+            col      = color_l[4],
             lty      = 6,
             lwd      = 1.5 )
       source( str_c(homedir, "fitting-stats.R") )
@@ -392,7 +393,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             pch      =  1,
             type     = "l",
@@ -419,11 +420,11 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             type     = "l",
-            col = color_l[2],
-            lty=2,
+            col      = color_l[2],
+            lty      = 2,
             lwd      = 1.5 )
       source( str_c(homedir, "fitting-stats.R") )
 
@@ -457,7 +458,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             xlim     = xlimite,
             ylim     = ylimit,
             cex.main = ftsize,
-            cex.lab = ftsizelb,
+            cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             pch      =  1,
             type     = "l",
@@ -479,7 +480,7 @@ png(str_c(homedir, homefit,"CorrelationsCovidABO_Log_fit", i_count, "_", nx,"_",
             cex.lab  = ftsizelb,
             cex.axis = ftsizeax,
             type     = "l",
-            col = color_l[3],
+            col      = color_l[3],
             lty      = 3,
             lwd      = 1.5 )
       source( str_c(homedir, "fitting-stats.R") )

@@ -17,7 +17,8 @@
 #        PCA,
 #        log option only,
 #        column name instead of number,
-#        refactorings.
+#        refactorings and
+#        new structure.
 #
 rm(list = ls(all = TRUE))
 # Libraries in use
@@ -32,7 +33,7 @@ packages_list <- c( "tidyverse",
                     "corrplot",
                     "GGally",
                     "stringr")
-lapply(packages_list, library, character.only = TRUE)
+invisible(lapply(packages_list, library, character.only = TRUE))
 
 homedir <-  str_c(getwd(), "/")
 homedir <- str_c(homedir,"R/")
@@ -48,10 +49,10 @@ source( str_c(homedir, "obtain_data_f.R") )
 source( str_c(homedir, "x_label_graph_f.R") )
 source( str_c(homedir, "type_blood_f.R") )
 
-
+# Configure choices like log, escale, data ...
 source( str_c(homedir, "conf-options.R") )
 
-#Defining date of analysis
+# Defining date of analysis
 if (data_site == 1) {
    datetemp      <- Sys.Date() # max date of the analysis
    date_analysis <- format(datetemp, format="%d%m%Y")
@@ -73,7 +74,7 @@ obtain_data_f(owid_file, data_site, date_analysis, homedir, homedata)
 #dataowd5_days <- read.csv( str_c(homedir, homedata, "dataowd5-", date_analysis, "-order.csv") )
 print(" Read files - Ok")
 
-# Many countries are excluded from the analysis when use PCA
+# Many countries maybe excluded from the analysis when use PCA
 # cols: 45-populations, 44-stringency_index, 46-populations_density, 46-cardiovasc_death_rate,
 #       47-diabetes_prevalence, 51-hospital_beds_per_thousand, 52-life_expectancy,
 #       53-human_development_index
@@ -291,8 +292,8 @@ for( l_count in c(1:ndata) ) {
                                "cardiovasc_death_rate",
                                "diabetes_prevalence",
                                "hospital_beds_per_thousand",
-                               "life_expectancy",
-                               "human_development_index")
+                               "life_expectancy")
+                               #"human_development_index")
                                #"people_fully_vaccinated_per_hundred" )
                vars_pca <- rbind( vars_pca, c( as.numeric(aux[k, varnames]) ) )
 
