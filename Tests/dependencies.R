@@ -1,4 +1,4 @@
-dependences <- function(){
+dependencies <- function(){
 
    packages_list <- c( "tidyverse",
                        "cluster",
