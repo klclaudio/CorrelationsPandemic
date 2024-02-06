@@ -1,5 +1,6 @@
 dependencies <- function(){
 
+   packages_list <- c()
    packages_list <- c( "tidyverse",
                        "cluster",
                        "factoextra",
@@ -11,8 +12,9 @@ dependencies <- function(){
                        "corrplot",
                        "GGally",
                        "stringr")
-   installed_packages <- packages_list %in% rownames(installed.packages)
+   installed_packages <- packages_list %in% rownames(installed.packages())
    if ( any(installed_packages == FALSE) ){
       install.packages(packages_list[!installed_packages])
    }
+   return (rbind( packages_list, installed_packages))
 }
