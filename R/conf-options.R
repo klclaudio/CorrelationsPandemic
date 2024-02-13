@@ -19,10 +19,10 @@ method_correl <- "pearson" # Correlation method:"pearson",  "spearman".
 errors_correl <- FALSE     # Correlation method option.
 
 # Numbers week/days considered since 5th death - loop i,  min four countries for analysi.s
-N_i           <- 190 #163 082020  #150 PCA 082020 # 1080 022024
+N_i           <- 200 #163 082020  #150 PCA 082020 # 1080 022024
 
 # Numbers week/days considered for fitting.
-nx            <- 180 #140         #140             # 1050 022024
+nx            <- 180 #145         #140 PCA 082020 # 1050 022024
 
 # Sets of countries analyzed.
 ndata         <- 4
@@ -33,6 +33,6 @@ interval_days <- 7
 # Period to find max correlations.
 inf_i <- c(35, 35, 35, 35)
 sup_i <- c(1, 1, 1, 1) * nx
-
+#sup_i <- c(120, 120, 120, 145)
 getOption("warn")
 options(warn = -1)
