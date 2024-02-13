@@ -12,17 +12,17 @@ tdpm          <- 0 # 0 - cumulative deaths,  1- total deaths per million.
 logdata       <- 1 # Data: 0- without log  transformation,  1- data with log transformation.
 
 datascale     <- 0  # 0- data not standardized,  1- data standardized.
-pca_expanded  <- 1  # 0 - without pca, 1- use of pca analysis.
+pca_expanded  <- 0  # 0 - without pca, 1- use of pca analysis.
 outcountry    <- "" # Countries exclude from analysis.
 
 method_correl <- "pearson" # Correlation method:"pearson",  "spearman".
 errors_correl <- FALSE     # Correlation method option.
 
 # Numbers week/days considered since 5th death - loop i,  min four countries for analysi.s
-N_i           <- 150 #190 #163 082020  #150 PCA 082020 # 1080 022024
+N_i           <- 163 #190 #163 082020  #150 PCA 082020 # 1080 022024
 
 # Numbers week/days considered for fitting.
-nx            <- 140 #140 #145         #135 PCA 082020 # 1050 022024
+nx            <- 145 #140 #145         #140 PCA 082020 # 1050 022024
 
 # Sets of countries analyzed.
 ndata         <- 4
@@ -32,6 +32,7 @@ interval_days <- 1
 
 # Period to find max correlations.
 inf_i <- c(35, 35, 35, 35)
-sup_i <- c(120, 120, 120, 140)
+#sup_i <- c(1, 1, 1, 1) * nx
+sup_i <- c(120, 120, 120, 145)
 getOption("warn")
 options(warn = -1)
