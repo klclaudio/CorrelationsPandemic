@@ -24,7 +24,7 @@
                                  "CI",
                                  type_stat,
                                  "_",
-                                  j_count, ".csv") ) # era l_count, parece possivel erro
+                                  j_count, ".csv") )
       mat_ci  <- mat_aux[, 2 : 31]
 
 
