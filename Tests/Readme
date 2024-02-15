@@ -1,0 +1,32 @@
+
+Installing requisites and running Covid correlations analysis
+
+1- Installing R (ubuntu)
+   https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html#installing-r
+      $ sudo apt-get update
+      $ sudo apt-get install r-base
+
+2- Installing git
+      $ sudo apt-get install git
+
+3- Dowwnloading repo from GitHub
+      $ git clone https://github.com/klclaudio/CovidCorrelations.git
+
+4- Installing dependencies
+      $ cd CovidCorrelations/Tests
+      $ Rscript dependencies.R
+
+5- Running  CovidCorrelations
+      $ cd ../Tests
+   Choose date to execute and copy conf-options file to R directory
+      $ cp conf-options-19082020.R ../R/conf-options.R
+      $ cd ../
+      $ Rscript R/TemporalAnalysis_owd_log.R
+
+
+When execute results are saved in R/Results_cumulative<>, the Tests/ folder has respective compressed results to compare.
+
+Fist results from 19082020 analysis is published in SSRN paper:
+https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3794044
+
+Confidence intervals presented in this paper have benn modified from new version code.

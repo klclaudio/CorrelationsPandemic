@@ -4,9 +4,9 @@
  maxmin_values_f <- function(homedir, homecsv, N_i, nx, vfilesout, inf_i, sup_i, type_stat, ndata) {
  library("stringr")
 
- # Analysis j_count: 1, 2, 3 and 4
+ # Analysis j_count: {1, 2, 3, 4}
    j_count <- 1
-   for( j_count in c(1:ndata )){
+   for( j_count in c(1:ndata) ){
       efective_days       <- c()
       vec         <- c()
       vec_pv      <- c()
@@ -38,7 +38,7 @@
 
          ivec        <- which.max( vec[efective_days] )
          max_CI      <-  mat_ci [ (ivec + efective_days[1] - 1),
-                                   c( (2 * k_count - 1 ) : (2 * k_count)) ]
+                                   c((2 * k_count - 1 ) : (2 * k_count)) ]
 
 
          auxc        <- c( max_vec,
@@ -66,8 +66,9 @@
                                    "AB",
                                    "Rh+",
                                    "Rh-" )
+
       write.csv( max_correls,
-                 str_c( homedir, homecsv, "Correls_Max", type_stat, "_", j_count, ".csv" ))  #type_stat ="" dados originais, type_stat ="" dados com transformações logarítmicas
+                 str_c( homedir, homecsv, "Correls_Max", type_stat, "_", j_count, ".csv" ))
       print( str_c("Análise ", j_count) )
       print(max_correls)
    }# end for j_count
