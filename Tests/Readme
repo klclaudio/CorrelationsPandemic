@@ -1,7 +1,7 @@
 
 Installing requisites and running covid correlations analysis
 
-1- Installing R (ubuntu)
+1- Installing R (Ubuntu)
    https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html#installing-r
       $ sudo apt-get update
       $ sudo apt-get install r-base
@@ -17,23 +17,32 @@ Installing requisites and running covid correlations analysis
       $ Rscript dependencies.R
 
 5- Running  CovidCorrelations
-      $ cd ../Tests
-   Choose date to execute and copy conf-options file to R directory
+      In Tests folder choose date file to execute, rename and copy conf-options to R directory
       $ cp conf-options-19082020.R ../R/conf-options.R
       $ cd ../
       $ Rscript R/TemporalAnalysis_owd_log.R
 
 
-When executing the code, results are saved in R/Results_cumulative<>. The Tests/ folder has results compressed for comparison.
+When executing the code, results are saved in R/Results_cumulative<>.
+The Tests/ folder has results compressed for comparison.
 
 Fist results from 19082020 analysis were published in SSRN paper:
 https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3794044
 
 Confidence intervals presented in this paper have benn modified from new version code.
 
-Used in testing:
 
+Used in testing:
    R version: 4.1.2
-   System   : Ubuntu Linux 22.04
-   Hardware : Phenom II 955, 16 GB RAM, SSD 1TB
-              AMD Ryzen 5 5600, 128GB RAM, SSD 1TB
+   Package versions:
+      "rafalib"   : ‘1.0.0’
+      "stringr"   : ‘1.5.1’
+      "factoextra": ‘1.0.7’
+      "dplyr"     : ‘1.1.4’
+      "ggcorrplot": ‘0.1.4.1’
+      "corrplot"  : ‘0.92’
+      "FactoMineR": ‘2.8’
+
+   System   : Ubuntu 22.04
+   Hardware : Phenom II 955, Memory 16GB , SSD 1TB
+              Ryzen 5 5600 , Memory 128GB, SSD 1TB
