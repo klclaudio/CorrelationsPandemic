@@ -5,20 +5,9 @@
 # http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/112-pca-principal-component-analysis-essentials/
 pca_analysis_f <- function(data_covid, i_days, l_count, dirout) {
 
-   packages_pca <- c( "ggplot2",
-                      "factoextra",
-                      "FactoMineR",
-                      "tidyverse",
-                      "cluster",
-                      "gridExtra",
-                      "dplyr",
-                      "rafalib",
-                      "stringr" )
-   lapply(packages_pca, library, character.only = TRUE)
-
-   dim                 <- dim(data_covid)
+   dim_data          <- dim(data_covid)
    # frame without covid (death) vector.
-   data_covid.active <- data_covid[,1:dim[2]-1]
+   data_covid.active <- data_covid[,1:dim_data[2]-1]
 
    rownames(data_covid.active) <- rownames (data_covid)
 
@@ -28,7 +17,7 @@ pca_analysis_f <- function(data_covid, i_days, l_count, dirout) {
    # otherwise, the PCA outputs obtained will be severely affected.
    # PCA(X, scale.unit = TRUE, ncp = 5, graph = TRUE)
 
-   res.pca <- PCA(data_covid, quanti.sup = dim[2], graph = FALSE)
+   res.pca <- PCA(data_covid, quanti.sup = dim_data[2], graph = FALSE)
    print(res.pca)
 
    # Visualization and Interpretation from: library("factoextra")

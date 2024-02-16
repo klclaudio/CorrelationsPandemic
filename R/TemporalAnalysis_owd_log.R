@@ -22,17 +22,8 @@
 #
 rm(list = ls(all = TRUE))
 # Libraries in use
-packages_list <- c( "tidyverse",
-                    "cluster",
-                    "factoextra",
-                    "gridExtra",
-                    "dplyr",
-                    "rafalib",
-                    "zoo",
-                    "ggcorrplot",
-                    "corrplot",
-                    "GGally",
-                    "stringr")
+packages_list <- c( "rafalib",
+                    "stringr" )
 invisible(lapply(packages_list, library, character.only = TRUE))
 
 homedir <-  str_c(getwd(), "/")
@@ -51,6 +42,15 @@ source( str_c(homedir, "type_blood_f.R") )
 
 # Configure choices like log, escale, data ...
 source( str_c(homedir, "conf-options.R") )
+
+if (pca_expanded == 1){
+   packages_pca <- c( "factoextra",
+                      "FactoMineR",
+                      "ggcorrplot",
+                      "corrplot",
+                      "dplyr" )
+   invisible(lapply(packages_pca, library, character.only = TRUE))
+}
 
 # Defining date of analysis
 if (data_site == 1) {

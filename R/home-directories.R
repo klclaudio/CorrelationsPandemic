@@ -1,11 +1,15 @@
 #
 # Work and Result directories
 #
-
+if (pca_expanded == 1 ){
+   str_pca <- "PCA-"
+}else{
+   str_pca <- ""
+}
 
 #tdpm: 0 - cumulative deaths,  1- total deaths per million
 if (tdpm == 0) {
-   homeresults <- str_c("Results-cumulative-", date_analysis, "/")
+   homeresults <- str_c("Results-cumulative-", str_pca, date_analysis, "/")
    create_dir_f( str_c(homedir, homeresults) )
 }else {
     # tdpm == 1

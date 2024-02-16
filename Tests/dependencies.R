@@ -1,20 +1,7 @@
 #
 # Install necessary packages for CovidCorrelations
 #
-dependencies <- function(){
-
-   package_list <- c()
-   package_list <- c("tidyverse",
-                      "cluster",
-                      "factoextra",
-                      "gridExtra",
-                      "dplyr",
-                      "rafalib",
-                      "zoo",
-                      "ggcorrplot",
-                      "corrplot",
-                      "GGally",
-                      "stringr")
+dependencies <- function(package_list){
 
    installed_packages <- package_list %in% rownames(installed.packages())
 
@@ -24,3 +11,15 @@ dependencies <- function(){
 
    return(rbind(package_list, installed_packages))
 }
+
+
+package_list_main <- c( "rafalib",
+                        "stringr" )
+print(dependencies(package_list_main))
+
+package_list_pca  <- c( "factoextra",
+                        "FactoMineR",
+                        "ggcorrplot",
+                        "corrplot",
+                        "dplyr" )
+print(dependencies(package_list_pca))
