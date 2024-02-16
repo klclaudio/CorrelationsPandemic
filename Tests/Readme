@@ -1,5 +1,5 @@
 
-Installing requisites and running Covid correlations analysis
+Installing requisites and running covid correlations analysis
 
 1- Installing R (ubuntu)
    https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html#installing-r
@@ -24,9 +24,16 @@ Installing requisites and running Covid correlations analysis
       $ Rscript R/TemporalAnalysis_owd_log.R
 
 
-When execute results are saved in R/Results_cumulative<>, the Tests/ folder has respective compressed results to compare.
+When executing the code, results are saved in R/Results_cumulative<>. The Tests/ folder has results compressed for comparison.
 
-Fist results from 19082020 analysis is published in SSRN paper:
+Fist results from 19082020 analysis were published in SSRN paper:
 https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3794044
 
 Confidence intervals presented in this paper have benn modified from new version code.
+
+Used in testing:
+
+   R version: 4.1.2
+   System   : Ubuntu Linux 22.04
+   Hardware : Phenom II 955, 16 GB RAM, SSD 1TB
+              AMD Ryzen 5 5600, 128GB RAM, SSD 1TB
