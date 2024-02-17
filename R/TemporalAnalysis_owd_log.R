@@ -1,5 +1,5 @@
 #
-# This is the a log version refactored, the preliminary results were presented in:
+# This is the a log version, the preliminary results were presented in:
 #
 # Claudio, Kleucio; Viviani Thomazini Luis Fernando;
 # Silva-Santos, Carlos Henrique; Sasaki, Eduardo Noboru;
@@ -11,10 +11,10 @@
 #    https://ssrn.com/abstract=3794044 or http://dx.doi.org/10.2139/ssrn.3794044
 #
 # v0.0 - base code.
-# v0.1 - refactored and new comments.
-# v0.2 - add analysis option for death rates per million and refactorings.
-# v1.0 - use of 2024 owid data (weekly),
-#        PCA,
+# v0.1 - refactoring and new comments.
+# v0.2 - added analysis option for death rates per million and refactorings.
+# v0.3 - option of 2024 owid data (weekly),
+#        PCA with biplot graph,
 #        log option only,
 #        column name instead of number,
 #        refactorings and
@@ -26,8 +26,9 @@ packages_list <- c( "rafalib",
                     "stringr" )
 invisible(lapply(packages_list, library, character.only = TRUE))
 
-homedir <-  str_c(getwd(), "/")
-homedir <- str_c(homedir,"R/")
+homedir <- str_c(getwd(), "/")
+homedir <- str_c(homedir, "R/")
+
 # Functions
 source( str_c(homedir, "pca_analysis_f.R") )
 source( str_c(homedir, "discontinuity_f.R") )
@@ -43,6 +44,7 @@ source( str_c(homedir, "type_blood_f.R") )
 # Configure choices like log, escale, data ...
 source( str_c(homedir, "conf-options.R") )
 
+# Libraries for PCA analysis
 if (pca_expanded == 1){
    packages_pca <- c( "factoextra",
                       "FactoMineR",
@@ -136,17 +138,17 @@ for( l_count in c(1:ndata) ) {
    size_n <- dim(dataowd5)
    days   <- c()
    N      <- size_n[1]
-   i_days      <- 1
+   i_days <- 1
    k      <- 1
    # Vector positions for countries
    while( k <= N - 1 ) {
       if( dataowd5[k, "location"] == dataowd5[k + 1, "location"] ) {
          i_days <- i_days + 1
-         k <- k + 1
+         k      <- k + 1
       }else {
-         days <- c(days, i_days)
+         days   <- c(days, i_days)
          i_days <- 1
-         k <- k + 1
+         k      <- k + 1
       }
    }
 

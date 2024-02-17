@@ -1,7 +1,7 @@
 #
 # Work and Result directories
 #
-if (pca_expanded == 1 ){
+if (pca_expanded == 1){
    str_pca <- "PCA-"
 }else{
    str_pca <- ""
