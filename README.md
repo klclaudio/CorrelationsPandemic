@@ -6,7 +6,7 @@ Since version v0.0 has automatic data file downloaded from  Our World in Data: <
 
 The code was implemented in R, the main files are TemporalAnalysis_owd.R and TemporalAnalysis_owd_log.R.
 
-New structure where R/ folder contains source code and Data/: blood types covid data from owid site.
+A new structure was implemented, where the R/ folder contains the source code, Data/ contains country data on blood types, number of deaths and others, the Tests/ folder contains compressed files with the first results (08/2020) and the latest results from 02/2024, configuration files for simulations and scripts for installing dependencies.
 
 Configuring file is conf-options.R, should see it before run.
 
