@@ -1,18 +1,17 @@
 # CovidCorrelations
+#### DOI: [10.5281/zenodo.5898679](https://zenodo.org/doi/10.5281/zenodo.5898679)
+Correlations in pandemic world are calculated between Covid-19 deaths and ABO groups. The initial results from this code are shown in SSRN DOI: [10.2139/ssrn.3794044](http://dx.doi.org/10.2139/ssrn.3794044).
 
-In this work, correlations in the pandemic world are calculated between deaths from Covid-19 and ABO/Rh groups. Initial results from this code are shown in the SSRN article: http://dx.doi.org/10.2139/ssrn.3794044.
-
-From version v0.0 onwards, data is automatically downloaded from the Our World in Data website: https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data .csv, in the current version (v0.3) there is the option to use already saved data.
+Since version v0.0 has automatic data file downloaded from  Our World in Data: <https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv> , in this current version there is option to use saved data.
 
 The code was implemented in R, the main files are TemporalAnalysis_owd.R and TemporalAnalysis_owd_log.R.
 
-A new structure was implemented, where the R/ folder contains source code, Data/: data on blood types and number of deaths and others from the owid website and the folder Tests/ contain results, configurings files to simulating and scripts to installs R dependencies.
+New structure where R/ folder contains source code and Data/: blood types covid data from owid site.
 
-The configuration file is conf-options.R, you should check it before running.
+Configuring file is conf-options.R, should see it before run.
 
-The results are saved in the directory: R/Results-cumulative-(analysis date).
+The results are saved in the directory: R/Results-cumulative-(date of analysis).
 
-Refactoring and other advancements have been made, including using weekly data from 2024 owid-covid-data.
+Refactoring and others advances have been done, using weekly data from 2024 owid-covid-data.
 
-Future work: studies of derivatives/variations based on temporal evolution are under analysis.
-
+Future works: studies of derivatives from temporal evolution of coefficients.
