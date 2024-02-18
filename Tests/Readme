@@ -34,9 +34,12 @@ Confidence intervals presented in this paper have benn modified from new version
 
 Used in testing:
    R version: 4.1.2
-   Package versions:
+   
+   Package versions - correlations:
       "rafalib"   : ‘1.0.0’
       "stringr"   : ‘1.5.1’
+
+   Package versions - pca:   
       "factoextra": ‘1.0.7’
       "dplyr"     : ‘1.1.4’
       "ggcorrplot": ‘0.1.4.1’
