@@ -10,7 +10,7 @@ A new structure was implemented, where the R/ folder contains source code, Data/
 
 The configuration file is conf-options.R, you should check it before running.
 
-The results are saved in the directory: R/Resultados-cumulativos-(analysis date).
+The results are saved in the directory: R/Results-cumulatives-(analysis date).
 
 Refactoring and other advancements have been made, including using weekly data from 2024 owid-covid-data.
 
