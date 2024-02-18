@@ -34,15 +34,15 @@
       for( k_count in c(1:15) ){
          vec         <- correl_pvalues[, (2 * k_count - 1)]
          vec_pv      <- correl_pvalues[, (2 * k_count)]
-         max_vec     <- max( vec[efective_days] )
+         max_vec     <- round(max( vec[efective_days] ),2)
 
          ivec        <- which.max( vec[efective_days] )
-         max_CI      <-  mat_ci [ (ivec + efective_days[1] - 1),
-                                   c((2 * k_count - 1 ) : (2 * k_count)) ]
+         max_CI      <- round( mat_ci [ (ivec + efective_days[1] - 1),
+                                   c((2 * k_count - 1 ) : (2 * k_count)) ], 2  )
 
 
          auxc        <- c( max_vec,
-                           vec_pv[ivec + efective_days[1] - 1],
+                           round(vec_pv[ivec + efective_days[1] - 1], 2),
                            ivec + efective_days[1] - 1,
                            max_CI )
          aux_correls <- rbind(aux_correls, auxc)

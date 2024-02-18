@@ -16,11 +16,13 @@
 # v0.3 - option of 2024 owid data (weekly),
 #        PCA with biplot graph,
 #        log option only,
-#        column name instead of number,
+#        using column name instead of index number,
+#        new CI code for maxmin_values,
 #        refactorings and
 #        new structure.
 #
 rm(list = ls(all = TRUE))
+
 # Libraries in use
 packages_list <- c( "rafalib",
                     "stringr" )

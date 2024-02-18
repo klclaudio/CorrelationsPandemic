@@ -2,7 +2,7 @@
 # Work and Result directories
 #
 if (pca_expanded == 1){
-   str_pca <- "PCA-"
+   str_pca <- "pca-"
 }else{
    str_pca <- ""
 }
